@@ -11,6 +11,7 @@ window.BLOG_TEXT = {
   "navArticles": "文章",
   "navTimeline": "时间线",
   "navToys": "小玩意",
+  "navGoethe": "歌德词汇",
 
   "heroBadge": "subdrone.github.io connected successfully",
   "heroHi": "",

@@ -635,6 +635,8 @@ function setNav(view) {
   $$('.nav-link').forEach((l) => {
     l.classList.toggle('is-active', l.dataset.nav === view);
   });
+  const grp = $('.nav-group');
+  if (grp) grp.classList.toggle('is-active', view === 'toys');
 }
 
 function go(view, opts = {}) {
@@ -675,6 +677,13 @@ function navigateFromHash() {
 }
 
 function initNav() {
+  $$('.nav-group-head').forEach((head) => {
+    head.addEventListener('click', () => {
+      const g = head.closest('.nav-group');
+      g.classList.toggle('is-open');
+      head.setAttribute('aria-expanded', g.classList.contains('is-open') ? 'true' : 'false');
+    });
+  });
   $$('[data-goto]').forEach((el) => {
     el.addEventListener('click', (e) => {
       e.preventDefault();

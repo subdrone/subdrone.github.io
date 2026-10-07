@@ -670,3 +670,27 @@ input,textarea{font-family:inherit;color:inherit}
 @media (max-width:900px){
   .view-toys{left:0;top:calc(var(--nav-h) + 46px)}
 }
+
+/* ---------- 侧栏分组：父级 + 子项（连接线 + 缩进） ---------- */
+.nav-group{margin-top:10px;padding-top:12px;border-top:1px solid var(--line)}
+.nav-group-head{
+  display:flex;align-items:center;justify-content:space-between;width:100%;
+  padding:10px 14px;font:inherit;font-size:14.5px;color:var(--text-dim);
+  border-radius:12px;cursor:pointer;transition:color .25s,background .25s;
+}
+.nav-group-head:hover{color:var(--text);background:var(--panel)}
+.nav-group.is-active .nav-group-head{color:var(--accent)}
+.nav-caret{font-size:10px;opacity:.7;transition:transform .25s}
+.nav-group.is-open .nav-caret{transform:rotate(180deg)}
+.nav-sub{display:none;margin:4px 0 2px 20px;border-left:2px solid var(--line-strong)}
+.nav-group.is-open .nav-sub{display:block}
+.nav-sub-link{
+  position:relative;display:flex;align-items:center;
+  padding:9px 12px 9px 18px;font-size:13.5px;border-radius:10px;
+}
+.nav-sub-link::before{
+  content:"";position:absolute;left:0;top:50%;width:12px;height:2px;
+  background:var(--line-strong);transform:translateY(-50%);
+}
+.nav-sub-link.is-active{color:var(--accent);background:var(--panel)}
+.nav-sub-link.is-active::after{display:none}

@@ -374,7 +374,7 @@ function cardHTML(a, extraClass = '') {
   <article class="card ${extraClass}" data-id="${a.id}" tabindex="0" role="button" aria-label="阅读：${a.title}">
     <div class="card-glow" aria-hidden="true"></div>
     <div class="card-cover" style="background:linear-gradient(135deg,${c1}33,${c2}22),var(--bg-2)">
-      <span class="card-glyph" style="color:${c1}">${a.glyph}</span>
+      <span class="card-glyph" style="color:${c1}">#${a.no ?? ''}</span>
       <span class="cover-label">${a.id}</span>
     </div>
     <div class="card-body">
@@ -588,7 +588,7 @@ function openPost(id) {
   countView(id);
 
   const [c1, c2] = a.cover;
-  $('#readerCover').innerHTML = `<span class="big-glyph" style="color:${c1}">${a.glyph}</span>`;
+  $('#readerCover').innerHTML = `<span class="big-glyph" style="color:${c1}">#${a.no ?? ''}</span>`;
   $('#readerCover').style.background = `linear-gradient(135deg,${c1}44,${c2}22),var(--bg-2)`;
   $('#readerTags').innerHTML = a.tags.map((t) => `<span class="mini-tag">#${t}</span>`).join('');
   $('#readerTitle').textContent = a.title;

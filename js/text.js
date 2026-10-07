@@ -10,6 +10,7 @@ window.BLOG_TEXT = {
   "navHome": "首页",
   "navArticles": "文章",
   "navTimeline": "时间线",
+  "navToys": "小玩意",
 
   "heroBadge": "subdrone.github.io connected successfully",
   "heroHi": "",

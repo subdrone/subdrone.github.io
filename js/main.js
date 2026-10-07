@@ -509,6 +509,12 @@ function renderTimeline() {
   observeReveals(tl);
 }
 
+/* ---------- 小玩意（内嵌子页面） ---------- */
+function loadToys() {
+  const f = $('#toysFrame');
+  if (f && !f.getAttribute('src')) f.setAttribute('src', 'toys/goethe/index.html');
+}
+
 /* ---------- Giscus 评论（真实、免费、零后端） ---------- */
 const GISCUS = {
   repo: 'picxis94-cyber/picxis94-cyber.github.io',
@@ -635,7 +641,7 @@ function go(view, opts = {}) {
   state.view = view;
   const home = $('[data-view="home"]');
   home.classList.toggle('is-active', view === 'home');
-  $$('[data-view="timeline"],[data-view="reader"],[data-view="notfound"]')
+  $$('[data-view="timeline"],[data-view="toys"],[data-view="reader"],[data-view="notfound"]')
     .forEach((s) => s.classList.toggle('is-active', s.dataset.view === view));
   if (view === 'reader') $('[data-view="reader"]').hidden = false;
 
@@ -647,12 +653,13 @@ function go(view, opts = {}) {
   setNav(view);
 
   if (view === 'timeline') renderTimeline();
+  if (view === 'toys') loadToys();
   if (view === 'notfound') startNF();
   if (view !== 'notfound') stopNF();
   if (view === 'home') renderCards();
 
   if (!opts.noPush) {
-    const hash = view === 'home' ? '' : view === 'timeline' ? '#/timeline' : null;
+    const hash = view === 'home' ? '' : view === 'timeline' ? '#/timeline' : view === 'toys' ? '#/toys' : null;
     if (hash !== null) { try { history.pushState({ v: view }, '', hash); } catch { /* ignore */ } }
   }
   setTimeout(observeReveals, 50);
@@ -662,6 +669,7 @@ function navigateFromHash() {
   const h = location.hash;
   if (h.startsWith('#/post/')) { openPost(h.slice('#/post/'.length)); return; }
   if (h === '#/timeline') { go('timeline', { noPush: true }); return; }
+  if (h === '#/toys') { go('toys', { noPush: true }); return; }
   if (h === '#articles') { go('home', { scrollTo: $('#articles').offsetTop - 20 }); return; }
   go('home', { instant: true, noPush: true });
 }

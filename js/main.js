@@ -792,6 +792,15 @@ function initSocial() {
       } catch { /* ignore */ }
     });
   });
+  $$('[data-qq]').forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      try {
+        const qq = atob(el.dataset.qq).split('').reverse().join('');
+        window.open(`https://wpa.qq.com/msgrd?v=3&uin=${qq}&site=qq&menu=yes`, '_blank', 'noopener');
+      } catch { /* ignore */ }
+    });
+  });
 }
 
 /* ---------- 404 粒子文字 ---------- */

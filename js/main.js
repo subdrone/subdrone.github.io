@@ -375,7 +375,7 @@ function cardHTML(a, extraClass = '') {
     <div class="card-glow" aria-hidden="true"></div>
     <div class="card-cover" style="background:linear-gradient(135deg,${c1}33,${c2}22),var(--bg-2)">
       <span class="card-glyph" style="color:${c1}">${a.glyph}</span>
-      <span class="cover-label">// ${a.id}</span>
+      <span class="cover-label">${a.id}</span>
     </div>
     <div class="card-body">
       <div class="card-meta">
@@ -495,7 +495,7 @@ function renderTimeline() {
   tl.innerHTML = list.map((a) => `
     <div class="tl-item reveal">
       <span class="tl-dot"></span>
-      <div class="tl-date">${a.date} // ${a.id}</div>
+      <div class="tl-date">${a.date}</div>
       <a class="tl-card" href="#" data-open="${a.id}">
         <div class="tl-title">${a.title}</div>
         <div class="tl-excerpt">${a.excerpt}</div>

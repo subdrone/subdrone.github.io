@@ -781,6 +781,19 @@ function initRss() {
   $$('#footerRss, #btnRss').forEach((el) => el.addEventListener('click', () => { window.open('rss.xml', '_blank'); }));
 }
 
+/* ---------- 社交 / 邮箱（防爬：邮箱点击时才还原） ---------- */
+function initSocial() {
+  $$('[data-mail]').forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      try {
+        const email = atob(el.dataset.mail).split('').reverse().join('');
+        location.href = 'mailto:' + email;
+      } catch { /* ignore */ }
+    });
+  });
+}
+
 /* ---------- 404 粒子文字 ---------- */
 let nfRAF = null, nfPts = [];
 function startNF() {
@@ -858,6 +871,7 @@ function init() {
   initCursor();
   initGoatCounter();
   initRss();
+  initSocial();
   navigateFromHash();
   observeReveals();
   maybeRefreshFromDisk();

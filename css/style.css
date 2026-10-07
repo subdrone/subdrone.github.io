@@ -655,3 +655,10 @@ input,textarea{font-family:inherit;color:inherit}
 
 /* 状态栏太极客，隐藏 */
 .statusbar{display:none}
+
+/* hero 统计低调化 */
+.hero-stats{gap:clamp(18px,4vw,38px);padding-top:22px;opacity:.72}
+.stat{flex-direction:row;align-items:baseline;gap:7px}
+.stat-num{font-size:1.05rem;font-weight:600;color:var(--text-dim)}
+.stat-num::after{display:none}
+.stat-lab{font-size:10px;letter-spacing:.14em;color:var(--text-faint)}

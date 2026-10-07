@@ -292,7 +292,7 @@ const viewsOf = (id) => store.get(`blog.views.${id}`, 0);
 /* ---------- 主题 ---------- */
 const theme = {
   init() {
-    const saved = store.get('blog.theme', 'light');
+    const saved = store.get('blog.theme', 'dark');
     document.documentElement.dataset.theme = saved;
     $('#btnTheme').addEventListener('click', () => this.toggle());
   },

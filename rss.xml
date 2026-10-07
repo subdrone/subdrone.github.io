@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>我的博客</title>
-    <link>https://picxis94-cyber.github.io/</link>
-    <description>一个用于存放文章的个人博客。</description>
+    <title>无人机潜水subdrone</title>
+    <link>https://subdrone.github.io/</link>
+    <description>无人机潜水subdrone 的个人博客。</description>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 27 Aug 2026 05:24:14 GMT</lastBuildDate>
-    
+    <lastBuildDate>Wed, 07 Oct 2026 10:45:00 GMT</lastBuildDate>
+    <item>
+      <title>碎碎念</title>
+      <link>https://subdrone.github.io/#/post/first-note</link>
+      <guid>https://subdrone.github.io/#/post/first-note</guid>
+      <pubDate>Wed, 07 Oct 2026 10:45:00 GMT</pubDate>
+      <description>其实我也不知道在这里写什么，总之就是写点碎碎念（？</description>
+    </item>
   </channel>
 </rss>

@@ -515,17 +515,17 @@ function loadToys() {
   if (f && !f.getAttribute('src')) f.setAttribute('src', 'toys/goethe/index.html');
 }
 
-/* ---------- Giscus 评论（真实、免费、零后端） ---------- */
+/* ---------- Giscus 评论（留空=关闭；换成你自己的仓库后填这里即可开启） ---------- */
 const GISCUS = {
-  repo: 'picxis94-cyber/picxis94-cyber.github.io',
-  repoId: 'R_kgDOT4yekg',   // 由 GraphQL 获取，已填
-  category: 'Announcements',       // 讨论分类
-  categoryId: 'DIC_kwDOT4yeks4DESMV',            // tools/setup-github.mjs 会自动查询填入
+  repo: '',            // 例 'subdrone/subdrone.github.io'
+  repoId: '',
+  category: '',
+  categoryId: '',
   lang: 'zh-CN',
 };
 
-/* ---------- GoatCounter 访问统计（免费） ---------- */
-const GOATCOUNTER_SITE = 'noonecomes.goatcounter.com';
+/* ---------- GoatCounter 访问统计（留空=关闭；例 'yourname.goatcounter.com'） ---------- */
+const GOATCOUNTER_SITE = '';
 
 function initGoatCounter() {
   if (!GOATCOUNTER_SITE) return;
@@ -546,10 +546,13 @@ function renderGiscus(postId) {
   const box = $('#giscus');
   if (!box) return;
   box.innerHTML = '';
-  if (!GISCUS.categoryId) {
-    box.innerHTML = `<p style="color:var(--text-faint);font-size:13px">${tt('giscusPending')}</p>`;
+  if (!GISCUS.repo || !GISCUS.categoryId) {
+    const sec = $('#comments');
+    if (sec) sec.hidden = true;   // 未配置评论时，整块隐藏
     return;
   }
+  const sec = $('#comments');
+  if (sec) sec.hidden = false;
   const theme = document.documentElement.dataset.theme === 'light' ? 'transparent_light' : 'transparent_dark';
   const s = document.createElement('script');
   s.src = 'https://giscus.app/client.js';

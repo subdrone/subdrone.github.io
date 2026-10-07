@@ -95,8 +95,8 @@ const field = (() => {
   const mouse = { x: -9999, y: -9999, active: false, lastMove: 0 };
   let running = true;
 
-  const BASE = [[148, 184, 203], [94, 234, 212], [167, 139, 250], [125, 211, 252], [244, 114, 182]];
-  const BASE_LIGHT = [[60, 90, 110], [13, 148, 136], [124, 58, 237], [2, 132, 199], [219, 39, 119]];
+  const BASE = [[255, 143, 187], [186, 168, 246], [255, 203, 140], [143, 220, 201], [255, 158, 196]];
+  const BASE_LIGHT = [[255, 158, 196], [186, 168, 246], [255, 203, 140], [143, 220, 201], [255, 143, 187]];
   const pal = () => (document.documentElement.dataset.theme === 'light' ? BASE_LIGHT : BASE);
   const isLight = () => document.documentElement.dataset.theme === 'light';
 
@@ -292,7 +292,7 @@ const viewsOf = (id) => store.get(`blog.views.${id}`, 0);
 /* ---------- 主题 ---------- */
 const theme = {
   init() {
-    const saved = store.get('blog.theme', 'dark');
+    const saved = store.get('blog.theme', 'light');
     document.documentElement.dataset.theme = saved;
     $('#btnTheme').addEventListener('click', () => this.toggle());
   },

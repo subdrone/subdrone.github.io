@@ -4,50 +4,50 @@
 
 /* ---------- 主题变量 ---------- */
 :root{
-  --bg:#05080c;
-  --bg-2:#080d14;
-  --panel:rgba(13,20,30,.55);
-  --panel-2:rgba(10,16,24,.72);
-  --line:rgba(120,200,220,.14);
-  --line-strong:rgba(120,210,230,.32);
-  --text:#dbe7ef;
-  --text-dim:#8296a6;
-  --text-faint:#4d5f6e;
-  --accent:#5eead4;
-  --accent-2:#7dd3fc;
-  --accent-3:#a78bfa;
-  --accent-4:#f472b6;
-  --warn:#fbbf24;
-  --danger:#f87171;
-  --code-bg:#0a1119;
-  --glow:0 0 24px rgba(94,234,212,.18), 0 0 64px rgba(125,211,252,.08);
-  --glow-soft:0 0 16px rgba(94,234,212,.12);
-  --radius:16px;
-  --font-display:"Space Grotesk","Noto Sans SC",ui-sans-serif,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
-  --font-body:"Noto Sans SC",ui-sans-serif,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
-  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --bg:#fff6fb;
+  --bg-2:#ffeef6;
+  --panel:rgba(255,255,255,.74);
+  --panel-2:rgba(255,255,255,.92);
+  --line:rgba(255,140,180,.22);
+  --line-strong:rgba(255,110,162,.42);
+  --text:#5c4a58;
+  --text-dim:#9a8794;
+  --text-faint:#c7b5c1;
+  --accent:#ff8ebd;
+  --accent-2:#b0a0f0;
+  --accent-3:#ffc98b;
+  --accent-4:#8fdcc9;
+  --warn:#ffb457;
+  --danger:#ff8a8a;
+  --code-bg:#fff0f7;
+  --glow:0 14px 34px rgba(255,148,190,.28);
+  --glow-soft:0 8px 20px rgba(255,148,190,.18);
+  --radius:22px;
+  --font-display:"Baloo 2","Nunito","Noto Sans SC",ui-sans-serif,system-ui,"PingFang SC","Microsoft YaHei",sans-serif;
+  --font-body:"Nunito","Noto Sans SC",ui-sans-serif,system-ui,"PingFang SC","Microsoft YaHei",sans-serif;
+  --font-mono:"Quicksand","Nunito","Noto Sans SC",ui-sans-serif,system-ui,"PingFang SC","Microsoft YaHei",sans-serif;
   --nav-h:64px;
   --side-w:222px;
-  --ease:cubic-bezier(.22,.8,.26,1);
-  --speed:.6s;
+  --ease:cubic-bezier(.34,1.5,.64,1);
+  --speed:.5s;
 }
-[data-theme="light"]{
-  --bg:#eef2f6;
-  --bg-2:#e6ebf1;
-  --panel:rgba(255,255,255,.66);
-  --panel-2:rgba(255,255,255,.86);
-  --line:rgba(30,60,80,.14);
-  --line-strong:rgba(20,120,150,.35);
-  --text:#16222e;
-  --text-dim:#5a6b7a;
-  --text-faint:#98a7b4;
-  --accent:#0d9488;
-  --accent-2:#0284c7;
-  --accent-3:#7c3aed;
-  --accent-4:#db2777;
-  --code-bg:#0d141c;
-  --glow:0 0 24px rgba(13,148,136,.16), 0 0 64px rgba(2,132,199,.08);
-  --glow-soft:0 0 16px rgba(13,148,136,.14);
+[data-theme="dark"]{
+  --bg:#241f2e;
+  --bg-2:#2d2739;
+  --panel:rgba(62,53,76,.62);
+  --panel-2:rgba(52,44,65,.85);
+  --line:rgba(255,150,190,.16);
+  --line-strong:rgba(255,150,190,.34);
+  --text:#f4e9f0;
+  --text-dim:#c6b5cb;
+  --text-faint:#90829a;
+  --accent:#ff9ec4;
+  --accent-2:#bcaaf6;
+  --accent-3:#ffcf94;
+  --accent-4:#9fe3d0;
+  --code-bg:#1f1a29;
+  --glow:0 14px 34px rgba(0,0,0,.42);
+  --glow-soft:0 8px 20px rgba(0,0,0,.3);
 }
 
 /* ---------- 基础 ---------- */
@@ -56,7 +56,13 @@
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 16px)}
 body{
   font-family:var(--font-body);
-  background:var(--bg);
+  background:
+    radial-gradient(58vw 58vw at 10% 6%, rgba(255,182,213,.6), transparent 62%),
+    radial-gradient(52vw 52vw at 90% 10%, rgba(198,183,253,.55), transparent 62%),
+    radial-gradient(56vw 56vw at 84% 88%, rgba(167,243,208,.5), transparent 62%),
+    radial-gradient(52vw 52vw at 12% 92%, rgba(255,214,165,.55), transparent 62%),
+    var(--bg);
+  background-attachment:fixed;
   color:var(--text);
   line-height:1.75;
   overflow-x:hidden;
@@ -64,7 +70,7 @@ body{
   transition:background var(--speed) var(--ease), color var(--speed) var(--ease);
   -webkit-font-smoothing:antialiased;
 }
-::selection{background:rgba(94,234,212,.28);color:var(--text)}
+::selection{background:rgba(255,142,189,.32);color:var(--text)}
 a{color:var(--accent-2);text-decoration:none;transition:color .25s}
 a:hover{color:var(--accent)}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
@@ -592,3 +598,63 @@ input,textarea{font-family:inherit;color:inherit}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important;scroll-behavior:auto!important}
 }
+
+/* ============================================================
+   可爱（奶油糖果）覆盖层
+   ============================================================ */
+/* 关掉极客感背景层 */
+.bg-grid,.scanline,.bg-noise{display:none}
+#field{opacity:.62}
+.bg-vignette{background:radial-gradient(ellipse 130% 100% at 50% 0%, transparent 62%, color-mix(in srgb,var(--bg) 78%, transparent) 145%)}
+.cursor-dot,.cursor-ring{display:none!important}
+
+/* 圆角与按钮 */
+.btn{border-radius:999px;font-weight:700}
+.btn-primary{color:#fff;text-shadow:0 1px 2px rgba(200,80,140,.22)}
+.btn-primary:hover{transform:translateY(-2px) scale(1.03)}
+.btn-ghost{border-radius:999px}
+.icon-btn{border-radius:12px}
+
+/* 导航 / 侧栏 */
+.nav-link{border-radius:999px}
+.sidebar .nav-link{border-radius:14px}
+.sidebar .nav-link.is-active{box-shadow:var(--glow-soft)}
+.brand{font-family:var(--font-display);font-weight:700;letter-spacing:.01em;color:var(--accent)}
+
+/* 顶栏搜索 */
+.search-box{border-radius:999px}
+.search-box:focus-within{box-shadow:var(--glow-soft)}
+
+/* 卡片 */
+.card{box-shadow:0 10px 26px rgba(255,160,200,.16)}
+.card:hover{box-shadow:0 18px 40px rgba(255,160,200,.26)}
+.cover-label{color:var(--accent-2);letter-spacing:.02em}
+
+/* 标签 */
+.tag-chip{border-radius:999px}
+.tag-chip.is-active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* 标题 / 小节 */
+.section-title{letter-spacing:0}
+.section-title-accent{letter-spacing:.24em;color:var(--accent-2);text-transform:lowercase}
+.section-kicker{letter-spacing:.16em;color:var(--accent)}
+.section-kicker::before,.section-kicker::after{content:""}
+.reader-body h2::before,.reader-body h3::before{content:""}
+.reader-title{letter-spacing:0}
+.reader-excerpt{border-left-color:var(--accent);border-radius:0 12px 12px 0;background:var(--panel);padding:12px 16px}
+
+/* hero */
+.hero-badge{background:var(--panel);border-color:var(--line-strong);color:var(--accent)}
+.stat-num::after{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.hero-name .grad{
+  background:linear-gradient(100deg,var(--accent) 0%,var(--accent-2) 55%,var(--accent-4) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;filter:none;
+}
+
+/* 阅读器 */
+.reader-nav-link{border-radius:18px}
+.reader-body code{border-radius:10px}
+.reader-body pre{border-radius:18px}
+
+/* 状态栏太极客，隐藏 */
+.statusbar{display:none}

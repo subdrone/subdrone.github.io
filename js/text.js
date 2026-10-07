@@ -25,27 +25,27 @@ window.BLOG_TEXT = {
 
   "scrollHint": "SCROLL",
 
-  "kickerArchive": "// ARCHIVE",
+  "kickerArchive": "记录时光",
 
   "sectionArticles": "文章",
-  "sectionArticlesEn": "LIBRARY",
+  "sectionArticlesEn": "library",
   "sectionTimeline": "时间线",
-  "sectionTimelineEn": "TIMELINE",
+  "sectionTimelineEn": "timeline",
 
   "searchPlaceholder": "搜索文章标题 / 全文…",
   "minUnit": "MIN",
 
-  "emptyGlyph": "∅",
-  "emptyNoArticle": "这里还没有文章。把 Markdown 放进 articles/ 目录，运行 node tools/gen.mjs 即可发布。",
+  "emptyGlyph": "空",
+  "emptyNoArticle": "这里还没有文章，等我慢慢写点什么吧～",
   "emptyNoMatch": "没有匹配的文章，换个关键词试试？",
   "timelineEmpty": "时间线还是空的，等你写下第一篇文章。",
 
   "back": "返回",
-  "commentsTitle": "// COMMENTS · GISCUS",
+  "commentsTitle": "留言",
   "readerEnd": "— 全文完 —",
   "readerTime": "{time} min 阅读 · {words} 字",
-  "prev": "← PREV",
-  "next": "NEXT →",
+  "prev": "← 上一篇",
+  "next": "下一篇 →",
 
   "nfMsg": "页面不存在了，换个地址试试。",
   "nfHome": "回到首页",
@@ -62,7 +62,7 @@ window.BLOG_TEXT = {
   "quickPlaceholder": "输入关键词，↑↓ 选择，Enter 打开",
   "quickEmpty": "无结果",
 
-  "giscusPending": "评论系统待配置：运行 <code>node tools/setup-github.mjs</code> 自动填入即可。",
+  "giscusPending": "评论还没配置好～",
 
   "a11ySearch": "搜索",
   "a11yTheme": "切换主题",

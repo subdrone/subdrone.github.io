@@ -350,18 +350,18 @@ const typewriter = {
         if (!deleting) {
           i++;
           el.textContent = word.slice(0, i) + ' _';
-          if (i >= word.length) { deleting = true; setTimeout(step, 1500); return; }
-          setTimeout(step, 70);
+          if (i >= word.length) { deleting = true; setTimeout(step, 7000); return; }
+          setTimeout(step, 110);
         } else {
           i--;
           el.textContent = word.slice(0, i) + ' _';
           if (i <= 0) { idx++; setTimeout(type, 350); return; }
-          setTimeout(step, 24);
+          setTimeout(step, 40);
         }
       };
       step();
     };
-    setTimeout(type, 2600);
+    setTimeout(type, 3000);
   },
 };
 
@@ -463,18 +463,23 @@ function renderTags() {
 
 function initToolbar() {
   renderTags();
-  const input = $('#searchInput');
-  const clearBtn = $('#searchClear');
-  input.addEventListener('input', () => {
+  const input = $('#topSearch');
+  const clearBtn = $('#topSearchClear');
+  if (!input) return;
+  const apply = () => {
     state.query = input.value;
     clearBtn.hidden = !input.value;
+    if (state.view !== 'home') {
+      go('home', { noPush: true });
+      setTimeout(() => $('#articles').scrollIntoView({ behavior: 'smooth' }), 60);
+    }
     renderCards();
-  });
+  };
+  input.addEventListener('input', apply);
   clearBtn.addEventListener('click', () => {
     input.value = '';
-    state.query = '';
     clearBtn.hidden = true;
-    renderCards();
+    apply();
     input.focus();
   });
 }
@@ -622,8 +627,7 @@ function countView(id) {
 /* ---------- 路由 ---------- */
 function setNav(view) {
   $$('.nav-link').forEach((l) => {
-    const v = l.dataset.nav;
-    l.classList.toggle('is-active', v === view || (view === 'home' && v === 'articles'));
+    l.classList.toggle('is-active', l.dataset.nav === view);
   });
 }
 
@@ -689,66 +693,10 @@ function initNav() {
   window.addEventListener('popstate', () => navigateFromHash());
 }
 
-/* ---------- 快捷搜索（⌘K 风格弹层） ---------- */
-let quickIndex = 0;
-const quickSearch = {
-  modal: null,
-  open() {
-    this.modal = $('#searchModal');
-    this.modal.hidden = false;
-    const input = $('#quickSearch');
-    input.value = '';
-    input.focus();
-    this.update('');
-    quickIndex = 0;
-  },
-  close() {
-    if (this.modal) this.modal.hidden = true;
-  },
-  update(q) {
-    const box = $('#quickResults');
-    const list = sorted(state.articles)
-      .filter((a) => !q || (a.title + a.tags.join('') + a.excerpt).toLowerCase().includes(q.toLowerCase()))
-      .slice(0, 8);
-    box.innerHTML = list.map((a, i) => `
-      <div class="quick-item ${i === quickIndex ? 'is-selected' : ''}" data-open="${a.id}">
-        <span class="q-glyph">${a.glyph}</span>
-        <span class="q-title">${a.title}</span>
-        <span class="q-meta">${fmtDate(a.date)} · ${a.time}min</span>
-      </div>`).join('') || `<div class="quick-item" style="cursor:default;color:var(--text-faint)">${tt('quickEmpty')}</div>`;
-    const items = box.querySelectorAll('[data-open]');
-    items.forEach((it) => it.addEventListener('mousemove', () => {
-      quickIndex = [...items].indexOf(it);
-      items.forEach((x, j) => x.classList.toggle('is-selected', j === quickIndex));
-    }));
-    items.forEach((it) => it.addEventListener('click', () => { this.close(); openPost(it.dataset.open); }));
-  },
-  move(d) {
-    quickIndex = Math.max(0, Math.min($('#quickResults').querySelectorAll('[data-open]').length - 1, quickIndex + d));
-    this.update($('#quickSearch').value);
-  },
-};
-
+/* ---------- 键盘：Esc 从阅读页返回 ---------- */
 function initModals() {
-  quickSearch.modal = $('#searchModal');
-  $('#btnSearch').addEventListener('click', () => quickSearch.open());
-  $$('[data-close]').forEach((b) => b.addEventListener('click', (e) => { e.target.closest('.modal').hidden = true; }));
-  $$('.modal').forEach((m) => m.addEventListener('click', (e) => { if (e.target === m) m.hidden = true; }));
-  const qs = $('#quickSearch');
-  qs.addEventListener('input', () => { quickIndex = 0; quickSearch.update(qs.value); });
-  qs.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowDown') { e.preventDefault(); quickSearch.move(1); }
-    else if (e.key === 'ArrowUp') { e.preventDefault(); quickSearch.move(-1); }
-    else if (e.key === 'Enter') {
-      const sel = $('#quickResults').querySelector('.is-selected');
-      if (sel) { quickSearch.close(); openPost(sel.dataset.open); }
-    }
-  });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      if (state.view === 'reader' && !e.target.closest('.modal')) { history.back(); return; }
-      quickSearch.close();
-    }
+    if (e.key === 'Escape' && state.view === 'reader') history.back();
   });
 }
 

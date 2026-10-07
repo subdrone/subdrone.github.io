@@ -27,6 +27,7 @@
   --font-body:"Noto Sans SC",ui-sans-serif,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
   --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --nav-h:64px;
+  --side-w:222px;
   --ease:cubic-bezier(.22,.8,.26,1);
   --speed:.6s;
 }
@@ -119,14 +120,14 @@ input,textarea{font-family:inherit;color:inherit}
 
 /* ---------- 导航 ---------- */
 .nav{
-  position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:1000;
+  position:fixed;top:0;left:var(--side-w);right:0;height:var(--nav-h);z-index:1000;
   backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
   background:linear-gradient(180deg,var(--bg-2) 0%, color-mix(in srgb,var(--bg-2) 60%, transparent) 100%);
   border-bottom:1px solid var(--line);
   transition:border-color var(--speed),box-shadow var(--speed);
 }
 .nav.is-scrolled{border-bottom-color:var(--line-strong);box-shadow:0 10px 40px -20px rgba(0,0,0,.6)}
-.nav-inner{max-width:1200px;margin:0 auto;height:100%;padding:0 28px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.nav-inner{max-width:none;margin:0 auto;height:100%;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-weight:600;letter-spacing:.06em;color:var(--text)}
 .brand-glyph{font-size:22px;filter:drop-shadow(0 0 10px var(--accent))}
 .brand-dot{color:var(--accent)}
@@ -155,8 +156,26 @@ input,textarea{font-family:inherit;color:inherit}
 [data-theme="light"] .ico-sun{display:block}
 [data-theme="light"] .ico-moon{display:none}
 
+/* ---------- 左侧栏 ---------- */
+.sidebar{
+  position:fixed;top:0;left:0;bottom:0;width:var(--side-w);z-index:1100;
+  display:flex;flex-direction:column;gap:26px;padding:20px 16px;
+  background:linear-gradient(180deg,var(--bg-2) 0%, color-mix(in srgb,var(--bg-2) 55%, transparent) 100%);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-right:1px solid var(--line);
+}
+.sidebar .brand{padding:6px 10px;font-size:15px}
+.sidebar-nav{display:flex;flex-direction:column;gap:4px}
+.sidebar .nav-link{
+  display:flex;align-items:center;padding:11px 14px 11px 20px;font-size:14.5px;border-radius:12px;
+}
+.sidebar .nav-link.is-active{background:var(--panel);color:var(--accent)}
+.sidebar .nav-link.is-active::after{left:8px;right:auto;width:3px;height:18px;top:50%;bottom:auto;transform:translateY(-50%);background:var(--accent);border-radius:3px}
+
+/* ---------- 顶栏搜索 ---------- */
+
 /* ---------- 通用容器 ---------- */
-.shell{position:relative;z-index:5}
+.shell{position:relative;z-index:5;margin-left:var(--side-w)}
 .view{display:none;min-height:100vh}
 .view.is-active{display:block;animation:viewIn var(--speed) var(--ease)}
 @keyframes viewIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
@@ -181,9 +200,8 @@ input,textarea{font-family:inherit;color:inherit}
 }
 .caret{display:inline-block;width:.6ch;height:1em;margin-left:4px;background:var(--accent);vertical-align:text-bottom;animation:caret 1s steps(1) infinite}
 @keyframes caret{50%{opacity:0}}
-.hero-sub{font-size:clamp(.9rem,2.4vw,1.15rem);color:var(--text-dim);min-height:1.8em;margin-bottom:44px}
+.hero-sub{font-size:clamp(.9rem,2.4vw,1.15rem);color:var(--text-dim);min-height:1.8em;margin-bottom:56px}
 .blink{animation:caret 1s steps(1) infinite;color:var(--accent)}
-.hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:64px}
 .hero-stats{
   display:flex;justify-content:center;gap:clamp(24px,6vw,64px);
   padding-top:28px;border-top:1px solid var(--line);
@@ -196,7 +214,9 @@ input,textarea{font-family:inherit;color:inherit}
   position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:8px;
   color:var(--text-faint);font-size:11px;letter-spacing:.3em;
+  cursor:pointer;transition:color .25s;
 }
+.hero-scrollhint:hover{color:var(--accent)}
 .line-v{width:1px;height:44px;background:linear-gradient(var(--accent),transparent);animation:drop 2s infinite var(--ease)}
 @keyframes drop{0%{transform:scaleY(0);transform-origin:top}55%{transform:scaleY(1);transform-origin:top}56%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
@@ -242,14 +262,14 @@ input,textarea{font-family:inherit;color:inherit}
 /* ---------- 工具栏 ---------- */
 .toolbar{display:grid;gap:18px;margin-bottom:40px}
 .search-box{
-  display:flex;align-items:center;gap:14px;max-width:100%;
-  padding:16px 22px;border-radius:16px;border:1px solid var(--line);
+  display:flex;align-items:center;gap:14px;flex:1;max-width:none;
+  padding:9px 16px;border-radius:12px;border:1px solid var(--line);
   background:var(--panel);backdrop-filter:blur(10px);
   transition:border-color .3s,box-shadow .3s;
 }
 .search-box:focus-within{border-color:var(--accent);box-shadow:var(--glow-soft)}
 .search-box svg{color:var(--text-faint);flex-shrink:0;width:18px;height:18px}
-.search-box input{flex:1;background:none;border:none;outline:none;font-size:16px;color:var(--text)}
+.search-box input{flex:1;background:none;border:none;outline:none;font-size:14.5px;color:var(--text)}
 .search-box input::placeholder{color:var(--text-faint)}
 .search-clear{
   width:24px;height:24px;flex-shrink:0;border-radius:6px;
@@ -547,6 +567,28 @@ input,textarea{font-family:inherit;color:inherit}
   .reader{padding-left:16px;padding-right:16px}
   .reader-nav{flex-direction:column}
 }
+/* ---------- 时间线顶部留白 ---------- */
+[data-view="timeline"]{padding-top:calc(var(--nav-h) + 40px)}
+
+/* ---------- 响应式：侧栏转为顶部子栏 ---------- */
+@media (max-width:900px){
+  .sidebar{
+    top:var(--nav-h);left:0;right:0;bottom:auto;width:auto;height:46px;
+    flex-direction:row;align-items:center;gap:10px;padding:0 14px;
+    border-right:none;border-bottom:1px solid var(--line);
+    overflow-x:auto;scrollbar-width:none;
+  }
+  .sidebar::-webkit-scrollbar{display:none}
+  .sidebar .brand{display:none}
+  .sidebar-nav{flex-direction:row;gap:4px}
+  .sidebar .nav-link{padding:8px 12px;font-size:13px;white-space:nowrap}
+  .sidebar .nav-link.is-active::after{display:none}
+  .nav{left:0}
+  .shell{margin-left:0;padding-top:46px}
+  .topsearch{max-width:none}
+  [data-view="timeline"]{padding-top:calc(var(--nav-h) + 46px + 30px)}
+}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important;scroll-behavior:auto!important}
 }

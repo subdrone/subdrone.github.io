@@ -19,8 +19,6 @@ window.BLOG_TEXT = {
     "我们的存在就是对恶意的最大反抗"
   ],
 
-  "ctaArticles": "进入文章",
-
   "statPosts": "POSTS",
   "statWords": "WORDS",
   "statTags": "TAGS",

@@ -641,10 +641,7 @@ function setNav(view) {
 
 function go(view, opts = {}) {
   state.view = view;
-  const home = $('[data-view="home"]');
-  home.classList.toggle('is-active', view === 'home');
-  $$('[data-view="timeline"],[data-view="toys"],[data-view="reader"],[data-view="notfound"]')
-    .forEach((s) => s.classList.toggle('is-active', s.dataset.view === view));
+  $$('[data-view]').forEach((s) => s.classList.toggle('is-active', s.dataset.view === view));
   if (view === 'reader') $('[data-view="reader"]').hidden = false;
 
   if (view === 'home' && opts.scrollTo) {
@@ -661,7 +658,7 @@ function go(view, opts = {}) {
   if (view === 'home') renderCards();
 
   if (!opts.noPush) {
-    const hash = view === 'home' ? '' : view === 'timeline' ? '#/timeline' : view === 'toys' ? '#/toys' : null;
+    const hash = view === 'home' ? '' : view === 'reader' ? null : `#/${view}`;
     if (hash !== null) { try { history.pushState({ v: view }, '', hash); } catch { /* ignore */ } }
   }
   setTimeout(observeReveals, 50);
@@ -670,9 +667,11 @@ function go(view, opts = {}) {
 function navigateFromHash() {
   const h = location.hash;
   if (h.startsWith('#/post/')) { openPost(h.slice('#/post/'.length)); return; }
-  if (h === '#/timeline') { go('timeline', { noPush: true }); return; }
-  if (h === '#/toys') { go('toys', { noPush: true }); return; }
   if (h === '#articles') { go('home', { scrollTo: $('#articles').offsetTop - 20 }); return; }
+  if (h.startsWith('#/')) {
+    const v = h.slice(2);
+    if (document.querySelector(`[data-view="${v}"]`)) { go(v, { noPush: true }); return; }
+  }
   go('home', { instant: true, noPush: true });
 }
 

@@ -694,3 +694,16 @@ input,textarea{font-family:inherit;color:inherit}
 }
 .nav-sub-link.is-active{color:var(--accent);background:var(--panel)}
 .nav-sub-link.is-active::after{display:none}
+
+/* ---------- 侧栏社交 ---------- */
+.sidebar-social{margin-top:auto;display:flex;gap:8px;padding-top:14px;border-top:1px solid var(--line)}
+.sidebar-social a{
+  display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;
+  border-radius:12px;color:var(--text-dim);background:var(--panel);
+  transition:color .25s,background .25s,transform .2s;
+}
+.sidebar-social a:hover{color:var(--accent);background:var(--panel-2);transform:translateY(-2px)}
+@media (max-width:900px){
+  .sidebar-social{margin:0 0 0 auto;padding:0;border:0;gap:6px}
+  .sidebar-social a{width:32px;height:32px}
+}

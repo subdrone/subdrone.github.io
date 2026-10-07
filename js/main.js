@@ -323,7 +323,7 @@ const typewriter = {
     this.line = $('#typeStatic');
     this.words = $('#typeWords');
     if (!this.line || !this.words) return;
-    this.words.innerHTML = `${tt('heroSubInit')} <span class="blink">_</span>`;
+    this.words.textContent = tt('heroSubInit');
     const full = this.line.textContent;
     this.line.textContent = '';
     this.typeInto(this.line, full, 38);
@@ -349,12 +349,12 @@ const typewriter = {
       const step = () => {
         if (!deleting) {
           i++;
-          el.textContent = word.slice(0, i) + ' _';
+          el.textContent = word.slice(0, i);
           if (i >= word.length) { deleting = true; setTimeout(step, 7000); return; }
           setTimeout(step, 110);
         } else {
           i--;
-          el.textContent = word.slice(0, i) + ' _';
+          el.textContent = word.slice(0, i);
           if (i <= 0) { idx++; setTimeout(type, 350); return; }
           setTimeout(step, 40);
         }

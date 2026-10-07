@@ -242,14 +242,14 @@ input,textarea{font-family:inherit;color:inherit}
 /* ---------- 工具栏 ---------- */
 .toolbar{display:grid;gap:18px;margin-bottom:40px}
 .search-box{
-  display:flex;align-items:center;gap:12px;max-width:520px;
-  padding:13px 18px;border-radius:14px;border:1px solid var(--line);
+  display:flex;align-items:center;gap:14px;max-width:100%;
+  padding:16px 22px;border-radius:16px;border:1px solid var(--line);
   background:var(--panel);backdrop-filter:blur(10px);
   transition:border-color .3s,box-shadow .3s;
 }
 .search-box:focus-within{border-color:var(--accent);box-shadow:var(--glow-soft)}
-.search-box svg{color:var(--text-faint);flex-shrink:0}
-.search-box input{flex:1;background:none;border:none;outline:none;font-size:14.5px;color:var(--text)}
+.search-box svg{color:var(--text-faint);flex-shrink:0;width:18px;height:18px}
+.search-box input{flex:1;background:none;border:none;outline:none;font-size:16px;color:var(--text)}
 .search-box input::placeholder{color:var(--text-faint)}
 .search-clear{
   width:24px;height:24px;flex-shrink:0;border-radius:6px;

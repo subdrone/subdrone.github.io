@@ -284,10 +284,9 @@ async function maybeRefreshFromDisk() {
   }
   if (rebuilt.length !== state.articles.length) return;
   state.articles = rebuilt;
-  renderTags(); renderCards(); renderFavs(); renderTimeline(); refreshStats();
+  renderTags(); renderCards(); renderTimeline(); refreshStats();
 }
 
-const favs = () => store.get('blog.favs', []);
 const viewsOf = (id) => store.get(`blog.views.${id}`, 0);
 
 /* ---------- 主题 ---------- */
@@ -369,7 +368,7 @@ const typewriter = {
 /* ---------- 渲染：卡片 ---------- */
 function fmtDate(d) { return d.replace(/-/g, '.'); }
 
-function cardHTML(a, fav, extraClass = '') {
+function cardHTML(a, extraClass = '') {
   const [c1, c2] = a.cover;
   return `
   <article class="card ${extraClass}" data-id="${a.id}" tabindex="0" role="button" aria-label="阅读：${a.title}">
@@ -380,16 +379,12 @@ function cardHTML(a, fav, extraClass = '') {
     </div>
     <div class="card-body">
       <div class="card-meta">
-        <span>${fmtDate(a.date)}</span><span>·</span><span>${a.time} ${tt('minUnit')}</span><span>·</span><span>👁 ${viewsOf(a.id)}</span>
+        <span>${fmtDate(a.date)}</span><span>·</span><span>${a.time} ${tt('minUnit')}</span>
       </div>
       <h3 class="card-title">${a.title}</h3>
       <p class="card-excerpt">${a.excerpt}</p>
       <div class="card-foot">
         <div class="card-tags">${a.tags.map((t) => `<span class="mini-tag">#${t}</span>`).join('')}</div>
-        <span class="card-view"></span>
-        <button class="card-star ${fav ? 'is-on' : ''}" data-fav="${a.id}" title="收藏" aria-label="收藏">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="${fav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.3.9-4.5 4.4 1 6.1L12 17.8 6.5 20l1-6.1L3 9.5l6.3-.9z"/></svg>
-        </button>
       </div>
     </div>
   </article>`;
@@ -418,7 +413,7 @@ function renderCards() {
   const list = sorted(filtered());
   const grid = $('#cardGrid');
   const empty = $('#emptyState');
-  grid.innerHTML = list.map((a) => cardHTML(a, favs().includes(a.id))).join('');
+  grid.innerHTML = list.map((a) => cardHTML(a)).join('');
   empty.hidden = list.length > 0;
   const msg = empty.querySelector('p');
   msg.textContent = state.articles.length === 0 ? tt('emptyNoArticle') : tt('emptyNoMatch');
@@ -429,16 +424,10 @@ function renderCards() {
 function bindCards(grid) {
   grid.querySelectorAll('.card').forEach((card) => {
     const id = card.dataset.id;
-    card.addEventListener('click', (e) => {
-      if (e.target.closest('[data-fav]')) return;
-      openPost(id);
-    });
+    card.addEventListener('click', () => { openPost(id); });
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPost(id); }
     });
-  });
-  grid.querySelectorAll('[data-fav]').forEach((btn) => {
-    btn.addEventListener('click', (e) => { e.stopPropagation(); toggleFav(btn.dataset.fav, btn); });
   });
   bindTilt(grid);
 }
@@ -458,41 +447,7 @@ function bindTilt(scope) {
   });
 }
 
-/* ---------- 收藏 ---------- */
-function toggleFav(id, btn) {
-  const list = favs();
-  const i = list.indexOf(id);
-  if (i >= 0) list.splice(i, 1); else list.push(id);
-  store.set('blog.favs', list);
-  if (btn) btn.classList.toggle('is-on', i < 0);
-  updateFavUI(id);
-  renderFavs();
-  renderCards();
-  refreshStats();
-}
-
-function updateFavUI(id) {
-  const badge = $('#favBadge');
-  const n = favs().length;
-  badge.hidden = n === 0;
-  badge.textContent = n;
-  const stars = $$(`[data-fav="${id}"]`);
-  const on = favs().includes(id);
-  stars.forEach((s) => { s.classList.toggle('is-on', on); });
-  const rf = $('#btnReaderFav');
-  if (rf && state.current === id) rf.classList.toggle('is-on', on);
-}
-
-function renderFavs() {
-  const grid = $('#favGrid');
-  const empty = $('#favEmpty');
-  const list = state.articles.filter((a) => favs().includes(a.id));
-  grid.innerHTML = list.map((a) => cardHTML(a, true)).join('');
-  empty.hidden = list.length > 0;
-  bindCards(grid);
-}
-
-/* ---------- 标签 / 搜索 / 排序 ---------- */
+/* ---------- 标签 / 搜索 ---------- */
 function renderTags() {
   const counts = {};
   state.articles.forEach((a) => a.tags.forEach((t) => (counts[t] = (counts[t] || 0) + 1)));
@@ -522,13 +477,6 @@ function initToolbar() {
     renderCards();
     input.focus();
   });
-  $$('.sort-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      $$('.sort-btn').forEach((b) => b.classList.toggle('is-active', b === btn));
-      state.sort = btn.dataset.sort;
-      renderCards();
-    });
-  });
 }
 
 /* ---------- 时间线 ---------- */
@@ -547,8 +495,8 @@ function renderTimeline() {
         <div class="tl-title">${a.title}</div>
         <div class="tl-excerpt">${a.excerpt}</div>
         <div class="tl-meta">
-          <span>⏱ ${a.time} min</span><span>${a.words} 字</span>
-          <span>👁 ${viewsOf(a.id)}</span><span>${a.tags.map((t) => '#' + t).join(' ')}</span>
+          <span>${a.time} min</span><span>${a.words} 字</span>
+          <span>${a.tags.map((t) => '#' + t).join(' ')}</span>
         </div>
       </a>
     </div>`).join('');
@@ -644,7 +592,6 @@ function openPost(id) {
   renderReaderNav();
   renderGiscus(id);
   trackView();
-  updateFavUI(id);
 
   if (location.hash !== `#/post/${id}`) {
     try { history.pushState({ v: 'reader', id }, '', `#/post/${id}`); } catch { /* ignore */ }
@@ -684,7 +631,7 @@ function go(view, opts = {}) {
   state.view = view;
   const home = $('[data-view="home"]');
   home.classList.toggle('is-active', view === 'home');
-  $$('[data-view="timeline"],[data-view="favorites"],[data-view="reader"],[data-view="notfound"]')
+  $$('[data-view="timeline"],[data-view="reader"],[data-view="notfound"]')
     .forEach((s) => s.classList.toggle('is-active', s.dataset.view === view));
   if (view === 'reader') $('[data-view="reader"]').hidden = false;
 
@@ -696,13 +643,12 @@ function go(view, opts = {}) {
   setNav(view);
 
   if (view === 'timeline') renderTimeline();
-  if (view === 'favorites') renderFavs();
   if (view === 'notfound') startNF();
   if (view !== 'notfound') stopNF();
   if (view === 'home') renderCards();
 
   if (!opts.noPush) {
-    const hash = view === 'home' ? '' : view === 'timeline' ? '#/timeline' : view === 'favorites' ? '#/favorites' : null;
+    const hash = view === 'home' ? '' : view === 'timeline' ? '#/timeline' : null;
     if (hash !== null) { try { history.pushState({ v: view }, '', hash); } catch { /* ignore */ } }
   }
   setTimeout(observeReveals, 50);
@@ -712,7 +658,6 @@ function navigateFromHash() {
   const h = location.hash;
   if (h.startsWith('#/post/')) { openPost(h.slice('#/post/'.length)); return; }
   if (h === '#/timeline') { go('timeline', { noPush: true }); return; }
-  if (h === '#/favorites') { go('favorites', { noPush: true }); return; }
   if (h === '#articles') { go('home', { scrollTo: $('#articles').offsetTop - 20 }); return; }
   go('home', { instant: true, noPush: true });
 }
@@ -725,7 +670,7 @@ function initNav() {
       if (t === 'back') { history.back(); return; }
       if (t === 'articles') { go('home', { noPush: true }); setTimeout(() => $('#articles').scrollIntoView({ behavior: 'smooth' }), 60); return; }
       if (t === 'home') { go('home'); return; }
-      if (t === 'timeline' || t === 'favorites') { go(t); return; }
+      if (t === 'timeline') { go(t); return; }
       go(t);
     });
   });
@@ -787,7 +732,6 @@ const quickSearch = {
 function initModals() {
   quickSearch.modal = $('#searchModal');
   $('#btnSearch').addEventListener('click', () => quickSearch.open());
-  $('#btnHelp').addEventListener('click', () => { $('#helpModal').hidden = false; });
   $$('[data-close]').forEach((b) => b.addEventListener('click', (e) => { e.target.closest('.modal').hidden = true; }));
   $$('.modal').forEach((m) => m.addEventListener('click', (e) => { if (e.target === m) m.hidden = true; }));
   const qs = $('#quickSearch');
@@ -803,35 +747,12 @@ function initModals() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       if (state.view === 'reader' && !e.target.closest('.modal')) { history.back(); return; }
-      quickSearch.close(); $('#helpModal').hidden = true;
+      quickSearch.close();
     }
   });
 }
 
-/* ---------- 快捷键 ---------- */
-function initKeys() {
-  document.addEventListener('keydown', (e) => {
-    const tag = e.target.tagName;
-    const typing = tag === 'INPUT' || tag === 'TEXTAREA';
-    if (e.key === '/' && !typing) { e.preventDefault(); quickSearch.open(); return; }
-    if (e.key === '?' && !typing) { e.preventDefault(); $('#helpModal').hidden = false; return; }
-    if (e.key.toLowerCase() === 't' && !typing) { theme.toggle(); return; }
-    if (typing && e.key === 'Escape' && e.target === $('#searchInput')) {
-      const si = $('#searchInput');
-      if (si.value) { si.value = ''; state.query = ''; $('#searchClear').hidden = true; renderCards(); }
-      si.blur();
-      return;
-    }
-    if (typing) return;
-    if (state.view === 'reader' && state.current) {
-      const list = sorted(state.articles.slice());
-      const i = list.findIndex((a) => a.id === state.current);
-      if (e.key === 'ArrowRight' && list[i - 1]) openPost(list[i - 1].id);
-      if (e.key === 'ArrowLeft' && list[i + 1]) openPost(list[i + 1].id);
-      if (e.key.toLowerCase() === 'f') { e.preventDefault(); toggleFav(state.current); }
-    }
-  });
-}
+/* ---------- 快捷键功能已移除 ---------- */
 
 /* ---------- 滚动：进度条 / 导航阴影 / 显现 ---------- */
 function initScroll() {
@@ -889,7 +810,6 @@ function refreshStats() {
   $('#statPosts').textContent = total;
   $('#statWords').textContent = state.articles.reduce((s, a) => s + a.words, 0);
   $('#statTags').textContent = [...new Set(state.articles.flatMap((a) => a.tags))].length;
-  $('#statFav').textContent = favs().length;
 }
 
 /* ---------- RSS ---------- */
@@ -965,18 +885,15 @@ function init() {
   initClock();
   initToolbar();
   renderCards();
-  renderFavs();
   renderTimeline();
   refreshStats();
   typewriter.init();
   initNav();
   initModals();
-  initKeys();
   initScroll();
   initCursor();
   initGoatCounter();
   initRss();
-  updateFavUI();
   navigateFromHash();
   observeReveals();
   maybeRefreshFromDisk();

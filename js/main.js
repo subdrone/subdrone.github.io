@@ -822,10 +822,15 @@ const sidebarHints = {
   init() {
     $$('.sidebar-row').forEach((row) => {
       const scroller = row.querySelector('.sidebar-nav, .sidebar-social');
-      if (scroller) scroller.addEventListener('scroll', () => this.update(), { passive: true });
+      if (!scroller) return;
+      scroller.addEventListener('scroll', () => this.update(), { passive: true });
+      if ('ResizeObserver' in window) {
+        new ResizeObserver(() => this.update()).observe(scroller);
+      }
     });
     window.addEventListener('resize', () => this.update());
     window.addEventListener('load', () => this.update());
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.update());
     this.update();
     setTimeout(() => this.update(), 300);
   },

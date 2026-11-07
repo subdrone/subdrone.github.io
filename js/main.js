@@ -683,6 +683,8 @@ function initNav() {
     head.addEventListener('click', () => {
       const g = head.closest('.nav-group');
       g.classList.toggle('is-open');
+      const row = g.closest('.sidebar-row-nav');
+      if (row) row.classList.toggle('is-open', g.classList.contains('is-open'));
       head.setAttribute('aria-expanded', g.classList.contains('is-open') ? 'true' : 'false');
       sidebarHints.update();
       setTimeout(sidebarHints.update, 260);
@@ -703,6 +705,16 @@ function initNav() {
     el.addEventListener('click', (e) => {
       e.preventDefault();
       const v = el.dataset.nav;
+      const row = el.closest('.sidebar-row-nav');
+      if (row && row.classList.contains('is-open')) {
+        row.classList.remove('is-open');
+        const grp = row.querySelector('.nav-group');
+        if (grp) {
+          grp.classList.remove('is-open');
+          const b = grp.querySelector('.nav-group-head');
+          if (b) b.setAttribute('aria-expanded', 'false');
+        }
+      }
       if (v === 'articles') {
         go('home', { noPush: true });
         setTimeout(() => $('#articles').scrollIntoView({ behavior: 'smooth' }), 80);
@@ -836,6 +848,47 @@ const sidebarHints = {
   },
 };
 
+/* ---------- 手机端：分目录改为竖向展开（把子菜单移出横向滚动区） ---------- */
+const mobileNavMQ = window.matchMedia('(max-width: 900px)');
+function syncMobileNav() {
+  const group = $('.nav-group');
+  const row = group && group.closest('.sidebar-row-nav');
+  const sub = group && group.querySelector('.nav-sub');
+  const btn = group && group.querySelector('.nav-group-head');
+  if (!group || !row || !sub || !btn) return;
+
+  if (mobileNavMQ.matches) {
+    if (sub.parentElement !== row) {
+      row.insertBefore(sub, row.querySelector('.sidebar-hint'));
+      sub.classList.add('mobile-sub');
+      group.classList.remove('is-open');
+      row.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  } else {
+    if (sub.parentElement !== group) {
+      group.appendChild(sub);
+      sub.classList.remove('mobile-sub');
+      row.classList.remove('is-open');
+    }
+    row.classList.toggle('is-open', group.classList.contains('is-open'));
+  }
+}
+mobileNavMQ.addEventListener ? mobileNavMQ.addEventListener('change', syncMobileNav) : mobileNavMQ.addListener(syncMobileNav);
+
+/* ---------- UTC+8 时钟（低调） ---------- */
+function initUtcClock() {
+  const el = $('#utcClock');
+  if (!el) return;
+  const fmt = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Asia/Shanghai',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23',
+  });
+  const tick = () => { el.textContent = 'UTC+8 ' + fmt.format(new Date()); };
+  tick();
+  setInterval(tick, 1000);
+}
+
 /* ---------- 404 粒子文字 ---------- */
 let nfRAF = null, nfPts = [];
 function startNF() {
@@ -908,6 +961,7 @@ function init() {
   refreshStats();
   typewriter.init();
   initNav();
+  syncMobileNav();
   initModals();
   initScroll();
   initCursor();
@@ -915,6 +969,7 @@ function init() {
   initRss();
   initSocial();
   sidebarHints.init();
+  initUtcClock();
   navigateFromHash();
   observeReveals();
   maybeRefreshFromDisk();

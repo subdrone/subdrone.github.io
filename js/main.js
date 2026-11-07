@@ -684,6 +684,8 @@ function initNav() {
       const g = head.closest('.nav-group');
       g.classList.toggle('is-open');
       head.setAttribute('aria-expanded', g.classList.contains('is-open') ? 'true' : 'false');
+      sidebarHints.update();
+      setTimeout(sidebarHints.update, 260);
     });
   });
   $$('[data-goto]').forEach((el) => {
@@ -806,6 +808,29 @@ function initSocial() {
   });
 }
 
+/* ---------- 手机端横向滑动提示（目录 / 社交两行） ---------- */
+const sidebarHints = {
+  update() {
+    $$('.sidebar-row').forEach((row) => {
+      const scroller = row.querySelector('.sidebar-nav, .sidebar-social');
+      if (!scroller) return;
+      const max = scroller.scrollWidth - scroller.clientWidth;
+      row.classList.toggle('has-more', max > 4 && scroller.scrollLeft < max - 4);
+      row.classList.toggle('has-prev', max > 4 && scroller.scrollLeft > 4);
+    });
+  },
+  init() {
+    $$('.sidebar-row').forEach((row) => {
+      const scroller = row.querySelector('.sidebar-nav, .sidebar-social');
+      if (scroller) scroller.addEventListener('scroll', () => this.update(), { passive: true });
+    });
+    window.addEventListener('resize', () => this.update());
+    window.addEventListener('load', () => this.update());
+    this.update();
+    setTimeout(() => this.update(), 300);
+  },
+};
+
 /* ---------- 404 粒子文字 ---------- */
 let nfRAF = null, nfPts = [];
 function startNF() {
@@ -884,6 +909,7 @@ function init() {
   initGoatCounter();
   initRss();
   initSocial();
+  sidebarHints.init();
   navigateFromHash();
   observeReveals();
   maybeRefreshFromDisk();

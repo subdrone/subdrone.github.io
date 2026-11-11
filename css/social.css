@@ -272,6 +272,7 @@
 @media (max-width: 1400px) {
   .hero {
     grid-template-columns: 1fr;
+    align-content: center;
     gap: 18px;
     padding-top: calc(var(--nav-h) + 18px);
     padding-bottom: 30px;

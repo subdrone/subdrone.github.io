@@ -40,7 +40,7 @@ window.BLOG_ARTICLES = [
     "title": "山沟",
     "date": "2026-11-12",
     "time": 1,
-    "words": 107,
+    "words": 110,
     "tags": [
       "诗歌集"
     ],

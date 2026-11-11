@@ -1,23 +1,6 @@
 /* articles-data.js — 由编辑器生成。字段：no, id, title, date, time, words, tags, cover, excerpt, body */
 window.BLOG_ARTICLES = [
   {
-    "id": "first-note",
-    "no": 1,
-    "title": "碎碎念",
-    "date": "2026-10-07",
-    "time": 1,
-    "words": 25,
-    "tags": [
-      "碎碎念"
-    ],
-    "cover": [
-      "#ff8ebd",
-      "#b0a0f0"
-    ],
-    "excerpt": "其实我也不知道在这里写什么，总之就是写点碎碎念（？",
-    "body": "其实我也不知道在这里写什么，总之就是写点碎碎念（？\n"
-  },
-  {
     "id": "wait-for-spring",
     "no": 2,
     "title": "等开春",

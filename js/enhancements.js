@@ -6,6 +6,32 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const noHover = window.matchMedia('(hover: none), (max-width: 820px)');
 
+  const EXTRA_TEXT = {
+    'zh-CN': { themeDark: '夜间', themeLight: '白天', readerViewsLabel: '次阅读' },
+    'zh-TW': { themeDark: '夜晚', themeLight: '白天', readerViewsLabel: '次閱讀' },
+    en: { themeDark: 'Dark', themeLight: 'Light', readerViewsLabel: 'views' },
+    ja: { themeDark: 'ダーク', themeLight: 'ライト', readerViewsLabel: '回閲覧' },
+    ko: { themeDark: '다크', themeLight: '라이트', readerViewsLabel: '회 읽음' },
+    de: { themeDark: 'Dunkel', themeLight: 'Hell', readerViewsLabel: 'Aufrufe' },
+  };
+
+  /* ---------- 补齐 HTML 里硬编码的少量 UI 文案 ---------- */
+  function localizeExtras() {
+    const lang = document.documentElement.lang || 'zh-CN';
+    const extra = EXTRA_TEXT[lang] || EXTRA_TEXT['zh-CN'];
+    Object.assign(window.BLOG_TEXT || (window.BLOG_TEXT = {}), extra);
+
+    document.querySelectorAll('.theme-label-dark').forEach((el) => { el.textContent = extra.themeDark; });
+    document.querySelectorAll('.theme-label-light').forEach((el) => { el.textContent = extra.themeLight; });
+
+    const views = document.getElementById('readerViews');
+    if (views && views.parentElement) {
+      const parent = views.parentElement;
+      [...parent.childNodes].forEach((node) => { if (node.nodeType === 3) node.remove(); });
+      parent.appendChild(document.createTextNode(' ' + extra.readerViewsLabel));
+    }
+  }
+
   /* ---------- UI 语言 ---------- */
   function initLanguage() {
     const select = document.getElementById('langSelect');
@@ -120,6 +146,7 @@
   }
 
   function init() {
+    localizeExtras();
     initLanguage();
     social.init();
     initQQ();

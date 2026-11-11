@@ -10,7 +10,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&family=Quicksand:wght@500;600;700&family=ZCOOL+KuaiLe&family=ZCOOL+QingKe+HuangYou&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css?v=15">
-<link rel="stylesheet" href="css/x-card.css?v=2">
 <link rel="stylesheet" href="css/aurora.css?v=1">
 <link rel="stylesheet" href="css/social.css?v=1">
 </head>
@@ -82,7 +81,7 @@
   <!-- ===== 主页（hero + 文章区） ===== -->
   <section class="view view-home is-active" data-view="home">
 
-    <!-- HERO -->
+    <!-- HERO：左文右牌，首屏可见 -->
     <div class="hero" id="hero">
       <div class="hero-inner">
         <div class="hero-badge mono" id="heroBadge">
@@ -100,97 +99,66 @@
           <div class="stat"><span class="stat-num" id="statTags">--</span><span class="stat-lab" data-text="statTags">TAGS</span></div>
         </div>
       </div>
-      <aside class="hero-social" data-aria="a11yXProfile" aria-label="X 主页">
-        <div class="x-card">
-          <div class="x-banner" aria-hidden="true">
-            <span class="x-banner-mark">𝕏</span>
-          </div>
-          <div class="x-profile">
-            <div class="x-avatar-wrap">
-              <span class="x-avatar-fallback" aria-hidden="true">S</span>
-              <img class="x-avatar" src="https://unavatar.io/twitter/subdrone0_o" alt="subdrone0_o 的头像" loading="lazy" referrerpolicy="no-referrer" onerror="this.hidden=true">
+
+      <div class="hero-hand" id="social" data-aria="a11ySocial" aria-label="社交媒体">
+        <div class="social-hand">
+          <article class="social-card" data-platform="x" style="--i:0">
+            <div class="social-banner"><span class="social-banner-glyph">𝕏</span></div>
+            <div class="social-body">
+              <div class="social-avatar-wrap">
+                <span class="social-avatar-fallback">X</span>
+                <img class="social-avatar" src="https://unavatar.io/twitter/subdrone0_o" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.hidden=true">
+              </div>
+              <div class="social-name"><strong>无人机潜水 subdrone</strong><span>@subdrone0_o</span></div>
+              <a class="social-action" href="https://x.com/subdrone0_o" target="_blank" rel="noopener nofollow"><span data-text="socialOpenX">打开 X</span><span class="social-action-arr">↗</span></a>
             </div>
-            <div class="x-identity">
-              <strong>无人机潜水 <span class="x-emoji">🏳️‍⚧️</span> subdrone <span class="x-emoji">🍥</span></strong>
-              <a href="https://x.com/subdrone0_o" target="_blank" rel="noopener nofollow">@subdrone0_o</a>
+          </article>
+
+          <article class="social-card" data-platform="tg" style="--i:1">
+            <div class="social-banner">
+              <span class="social-banner-glyph"><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M9.8 15.6l-.3 4.4c.5 0 .7-.2 1-.5l2.4-2.3 5 3.7c.9.5 1.6.2 1.8-.8l3.3-15.4c.3-1.3-.5-1.8-1.3-1.5L2.4 9.9c-1.3.5-1.3 1.2-.2 1.6l4.6 1.4L17.5 6c.5-.3.9-.1.6.2l-9 8.1z"/></svg></span>
             </div>
-            <p class="x-bio">MtX(f？) · 2008—2027 · 跨物种企鹅 · INFP · ADHD · 普通话 / 胶辽官话 · 180cm</p>
-            <div class="x-meta">
-              <span>📍 Antarctica</span>
-              <span data-text="xJoined">🗓 Joined July 2025</span>
+            <div class="social-body">
+              <div class="social-avatar-wrap">
+                <span class="social-avatar-fallback">T</span>
+                <img class="social-avatar" src="https://unavatar.io/telegram/no_one_comes_tg" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.hidden=true">
+              </div>
+              <div class="social-name"><strong>kagarazaka mio</strong><span>@no_one_comes_tg</span></div>
+              <a class="social-action" href="https://t.me/no_one_comes_tg" target="_blank" rel="noopener nofollow"><span data-text="socialOpenTg">打开 Telegram</span><span class="social-action-arr">↗</span></a>
             </div>
-            <div class="x-stats">
-              <a href="https://x.com/subdrone0_o/followers" target="_blank" rel="noopener nofollow"><strong>548</strong><span data-text="xFollowers">关注者</span></a>
-              <a href="https://x.com/subdrone0_o/following" target="_blank" rel="noopener nofollow"><strong>451</strong><span data-text="xFollowing">正在关注</span></a>
-              <a href="https://x.com/subdrone0_o" target="_blank" rel="noopener nofollow"><strong>1036</strong><span data-text="xPosts">帖子</span></a>
+          </article>
+
+          <article class="social-card" data-platform="qq" style="--i:2">
+            <div class="social-banner"><span class="social-banner-glyph">QQ</span></div>
+            <div class="social-body">
+              <div class="social-avatar-wrap">
+                <span class="social-avatar-fallback social-avatar-qq" aria-hidden="true"><svg viewBox="0 0 24 24" width="34" height="34" fill="currentColor"><path d="M21.395 15.035a40 40 0 0 0-.803-2.264l-1.079-2.695c.001-.032.014-.562.014-.836C19.526 4.632 17.351 0 12 0S4.474 4.632 4.474 9.241c0 .274.013.804.014.836l-1.08 2.695a39 39 0 0 0-.802 2.264c-1.021 3.283-.69 4.643-.438 4.673c.54.065 2.103-2.472 2.103-2.472c0 1.469.756 3.387 2.394 4.771c-.612.188-1.363.479-1.845.835c-.434.32-.379.646-.301.778c.343.578 5.883.369 7.482.189c1.6.18 7.14.389 7.483-.189c.078-.132.132-.458-.301-.778c-.483-.356-1.233-.646-1.846-.836c1.637-1.384 2.393-3.302 2.393-4.771c0 0 1.563 2.537 2.103 2.472c.251-.03.581-1.39-.438-4.673"/></svg></span>
+              </div>
+              <div class="social-name"><strong>QQ</strong></div>
+              <a class="social-action social-action-qq" href="#" data-qq="MjY1NDg3MTkzMw==" rel="nofollow"><span data-text="socialOpenQq">加 QQ 好友</span><span class="social-action-arr">↗</span></a>
             </div>
-            <div class="x-actions">
-              <a class="x-follow" href="https://x.com/subdrone0_o" target="_blank" rel="noopener nofollow"><span data-text="xOpenProfile">打开 X 主页</span> <span>↗</span></a>
+          </article>
+
+          <article class="social-card" data-platform="gh" style="--i:3">
+            <div class="social-banner">
+              <span class="social-banner-glyph"><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11 11 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg></span>
             </div>
-          </div>
+            <div class="social-body">
+              <div class="social-avatar-wrap">
+                <span class="social-avatar-fallback">G</span>
+                <img class="social-avatar" src="https://unavatar.io/github/subdrone" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.hidden=true">
+              </div>
+              <div class="social-name"><strong>subdrone</strong><span>@subdrone</span></div>
+              <a class="social-action" href="https://github.com/subdrone" target="_blank" rel="noopener nofollow"><span data-text="socialOpenGh">打开 GitHub</span><span class="social-action-arr">↗</span></a>
+            </div>
+          </article>
         </div>
-      </aside>
+      </div>
       <a class="hero-scrollhint mono" id="scrollHint" href="#articles" data-goto="articles" aria-label="进入文章">
         <span data-text="scrollHint">SCROLL</span>
         <span class="line-v"></span>
       </a>
     </div>
-
-    <!-- 社交媒体手牌 -->
-    <section class="social-section" id="social" data-aria="a11ySocial" aria-label="社交媒体">
-      <div class="social-hand">
-        <article class="social-card" data-platform="x" style="--i:0">
-          <div class="social-banner"><span class="social-banner-glyph">𝕏</span></div>
-          <div class="social-body">
-            <div class="social-avatar-wrap">
-              <span class="social-avatar-fallback">X</span>
-              <img class="social-avatar" src="https://unavatar.io/twitter/subdrone0_o" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.hidden=true">
-            </div>
-            <div class="social-name"><strong>无人机潜水 subdrone</strong><span>@subdrone0_o</span></div>
-            <a class="social-action" href="https://x.com/subdrone0_o" target="_blank" rel="noopener nofollow"><span data-text="socialOpenX">打开 X</span><span class="social-action-arr">↗</span></a>
-          </div>
-        </article>
-
-        <article class="social-card" data-platform="tg" style="--i:1">
-          <div class="social-banner">
-            <span class="social-banner-glyph"><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M9.8 15.6l-.3 4.4c.5 0 .7-.2 1-.5l2.4-2.3 5 3.7c.9.5 1.6.2 1.8-.8l3.3-15.4c.3-1.3-.5-1.8-1.3-1.5L2.4 9.9c-1.3.5-1.3 1.2-.2 1.6l4.6 1.4L17.5 6c.5-.3.9-.1.6.2l-9 8.1z"/></svg></span>
-          </div>
-          <div class="social-body">
-            <div class="social-avatar-wrap">
-              <span class="social-avatar-fallback">T</span>
-              <img class="social-avatar" src="https://unavatar.io/telegram/no_one_comes_tg" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.hidden=true">
-            </div>
-            <div class="social-name"><strong>kagarazaka mio</strong><span>@no_one_comes_tg</span></div>
-            <a class="social-action" href="https://t.me/no_one_comes_tg" target="_blank" rel="noopener nofollow"><span data-text="socialOpenTg">打开 Telegram</span><span class="social-action-arr">↗</span></a>
-          </div>
-        </article>
-
-        <article class="social-card" data-platform="qq" style="--i:2">
-          <div class="social-banner"><span class="social-banner-glyph">QQ</span></div>
-          <div class="social-body">
-            <div class="social-avatar-wrap">
-              <span class="social-avatar-fallback social-avatar-qq" aria-hidden="true"><svg viewBox="0 0 24 24" width="34" height="34" fill="currentColor"><path d="M21.395 15.035a40 40 0 0 0-.803-2.264l-1.079-2.695c.001-.032.014-.562.014-.836C19.526 4.632 17.351 0 12 0S4.474 4.632 4.474 9.241c0 .274.013.804.014.836l-1.08 2.695a39 39 0 0 0-.802 2.264c-1.021 3.283-.69 4.643-.438 4.673c.54.065 2.103-2.472 2.103-2.472c0 1.469.756 3.387 2.394 4.771c-.612.188-1.363.479-1.845.835c-.434.32-.379.646-.301.778c.343.578 5.883.369 7.482.189c1.6.18 7.14.389 7.483-.189c.078-.132.132-.458-.301-.778c-.483-.356-1.233-.646-1.846-.836c1.637-1.384 2.393-3.302 2.393-4.771c0 0 1.563 2.537 2.103 2.472c.251-.03.581-1.39-.438-4.673"/></svg></span>
-            </div>
-            <div class="social-name"><strong>QQ</strong></div>
-            <a class="social-action social-action-qq" href="#" data-qq="MjY1NDg3MTkzMw==" rel="nofollow"><span data-text="socialOpenQq">加 QQ 好友</span><span class="social-action-arr">↗</span></a>
-          </div>
-        </article>
-
-        <article class="social-card" data-platform="gh" style="--i:3">
-          <div class="social-banner">
-            <span class="social-banner-glyph"><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11 11 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg></span>
-          </div>
-          <div class="social-body">
-            <div class="social-avatar-wrap">
-              <span class="social-avatar-fallback">G</span>
-              <img class="social-avatar" src="https://unavatar.io/github/subdrone" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.hidden=true">
-            </div>
-            <div class="social-name"><strong>subdrone</strong><span>@subdrone</span></div>
-            <a class="social-action" href="https://github.com/subdrone" target="_blank" rel="noopener nofollow"><span data-text="socialOpenGh">打开 GitHub</span><span class="social-action-arr">↗</span></a>
-          </div>
-        </article>
-      </div>
-    </section>
 
     <!-- 文章板块 -->
     <div class="articles" id="articles">

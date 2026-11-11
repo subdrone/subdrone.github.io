@@ -3,8 +3,6 @@
    交互增强：UI 语言 / 社交媒体手牌展开 / QQ 加好友
    ========================================================================= */
 (function () {
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   const EXTRA_TEXT = {
     'zh-CN': { themeDark: '夜间', themeLight: '白天', readerViewsLabel: '次阅读' },
     'zh-TW': { themeDark: '夜晚', themeLight: '白天', readerViewsLabel: '次閱讀' },
@@ -45,65 +43,20 @@
     });
   }
 
-  /* ---------- 社交媒体手牌展开 ---------- */
-  const social = {
-    section: null,
-    nav: null,
-    open() {
-      if (!this.section) return;
-      const home = document.querySelector('[data-view="home"]');
-      if (home && !home.classList.contains('is-active')) {
-        const homeLink = document.querySelector('.sidebar [data-nav="home"]');
-        if (homeLink) homeLink.click();
-      }
-      this.section.hidden = false;
-      if (this.nav) {
-        this.nav.classList.add('is-social-open');
-        this.nav.setAttribute('aria-expanded', 'true');
-      }
-      requestAnimationFrame(() => {
-        this.section.classList.add('is-open');
-        setTimeout(() => {
-          this.section.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-        }, 120);
+  /* ---------- 社交媒体手牌进入视口时摊开 ---------- */
+  function initSocialReveal() {
+    const section = document.getElementById('social');
+    if (!section) return;
+    if (!('IntersectionObserver' in window)) { section.classList.add('is-in'); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        section.classList.add('is-in');
+        io.disconnect();
       });
-    },
-    close() {
-      if (!this.section) return;
-      this.section.classList.remove('is-open');
-      this.section.hidden = true;
-      if (this.nav) {
-        this.nav.classList.remove('is-social-open');
-        this.nav.setAttribute('aria-expanded', 'false');
-      }
-      if (location.hash === '#social') {
-        try { history.replaceState(null, '', location.pathname + location.search); } catch { /* ignore */ }
-      }
-    },
-    toggle() {
-      if (!this.section) return;
-      if (this.section.hidden || !this.section.classList.contains('is-open')) this.open();
-      else this.close();
-    },
-    init() {
-      this.section = document.getElementById('social');
-      this.nav = document.getElementById('navSocial');
-      if (!this.section || !this.nav) return;
-      this.nav.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.toggle();
-      });
-      const collapse = document.getElementById('socialCollapse');
-      if (collapse) collapse.addEventListener('click', () => this.close());
-      document.querySelectorAll('.sidebar [data-nav]').forEach((link) => {
-        link.addEventListener('click', () => this.close());
-      });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !this.section.hidden) this.close();
-      });
-      if (location.hash === '#social') this.open();
-    },
-  };
+    }, { threshold: 0.2 });
+    io.observe(section);
+  }
 
   /* ---------- QQ：点击唤起加好友 ---------- */
   function openQQAdd(qq) {
@@ -133,7 +86,7 @@
   function init() {
     localizeExtras();
     initLanguage();
-    social.init();
+    initSocialReveal();
     initQQ();
   }
 

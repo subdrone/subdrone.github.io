@@ -304,6 +304,8 @@
 }
 
 @media (max-width: 640px) {
+  .topsearch,
+  .topsearch input { min-width: 0; }
   .sidebar .nav-link.is-social-open::after { display: none; }
   .social-section { padding: 0 18px 100px; }
   .social-grid { grid-template-columns: 1fr; gap: 18px; }

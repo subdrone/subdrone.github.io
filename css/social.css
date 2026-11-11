@@ -46,6 +46,25 @@
   color: var(--text);
 }
 
+/* 侧栏「社交媒体」打开时的选中态 */
+.sidebar .nav-link.is-social-open {
+  background: var(--panel);
+  color: var(--accent);
+}
+.sidebar .nav-link.is-social-open::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: auto;
+  top: 50%;
+  bottom: auto;
+  width: 3px;
+  height: 18px;
+  transform: translateY(-50%);
+  background: var(--accent);
+  border-radius: 3px;
+}
+
 /* ---------- 社交媒体区 ---------- */
 .social-section {
   max-width: 1200px;
@@ -285,6 +304,7 @@
 }
 
 @media (max-width: 640px) {
+  .sidebar .nav-link.is-social-open::after { display: none; }
   .social-section { padding: 0 18px 100px; }
   .social-grid { grid-template-columns: 1fr; gap: 18px; }
   .social-card { border-radius: 22px; }

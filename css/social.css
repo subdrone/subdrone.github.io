@@ -1,0 +1,303 @@
+/* ============================================================
+   social.css — 社交媒体卡片 + 语言选择器
+   ============================================================ */
+
+/* ---------- 语言选择器 ---------- */
+.lang-picker {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: none;
+  padding: 7px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--text-dim);
+  font-size: 12px;
+  line-height: 1;
+  transition: border-color .25s, background .25s, color .25s;
+}
+.lang-picker:hover,
+.lang-picker:focus-within {
+  border-color: var(--accent);
+  color: var(--text);
+}
+.lang-globe { flex: none; opacity: .8; }
+.lang-label { white-space: nowrap; }
+.lang-picker select {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  padding-right: 13px;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+                    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 7px) 50%, calc(100% - 3px) 50%;
+  background-size: 4px 4px, 4px 4px;
+  background-repeat: no-repeat;
+}
+.lang-picker select option {
+  background: var(--bg-2);
+  color: var(--text);
+}
+
+/* ---------- 社交媒体区 ---------- */
+.social-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 28px 120px;
+  scroll-margin-top: calc(var(--nav-h) + 24px);
+}
+
+.social-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 34px;
+}
+.social-head .section-title { margin-bottom: 0; }
+.social-head .section-desc { margin-top: 10px; }
+
+.social-collapse {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--text-dim);
+  font-size: 12.5px;
+  transition: color .25s, border-color .25s, background .25s, transform .25s var(--ease);
+}
+.social-collapse:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--panel-2);
+  transform: translateY(-2px);
+}
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  perspective: 1400px;
+}
+
+/* ---------- 纸牌式社交卡片 ---------- */
+.social-card {
+  --brand: #ff8ebd;
+  --brand-2: #b0a0f0;
+  --brand-ink: #fff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--panel);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 16px 42px -24px rgba(0, 0, 0, .55), var(--glow-soft);
+  transform-style: preserve-3d;
+  transition: transform .35s var(--ease), border-color .3s, box-shadow .3s;
+  animation: socialDeal .8s var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+.social-section:not(.is-open) .social-card { animation: none; }
+.social-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, rgba(255, 255, 255, .18), transparent 34%, transparent 70%, rgba(255, 255, 255, .08));
+  opacity: .55;
+}
+.social-card:hover {
+  border-color: var(--line-strong);
+  box-shadow: 0 24px 54px -26px rgba(0, 0, 0, .62), var(--glow);
+  transform: translateY(-8px) rotateX(3deg);
+}
+
+.social-card[data-platform="x"] { --brand: #16181c; --brand-2: #3b3f46; }
+.social-card[data-platform="tg"] { --brand: #229ed9; --brand-2: #5ac8fa; }
+.social-card[data-platform="qq"] { --brand: #12b7f5; --brand-2: #6dd5fa; }
+.social-card[data-platform="gh"] { --brand: #24292f; --brand-2: #57606a; }
+
+.social-banner {
+  position: relative;
+  height: 92px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 22% 26%, rgba(255, 255, 255, .24), transparent 32%),
+    radial-gradient(circle at 86% 78%, rgba(255, 255, 255, .14), transparent 38%),
+    linear-gradient(135deg, var(--brand), var(--brand-2));
+}
+.social-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .3;
+  background-image: radial-gradient(rgba(255, 255, 255, .85) 1px, transparent 1px);
+  background-size: 16px 16px;
+  mask-image: linear-gradient(120deg, #000, transparent 72%);
+  -webkit-mask-image: linear-gradient(120deg, #000, transparent 72%);
+}
+.social-banner-glyph {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, .9);
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, .16));
+}
+.social-card-no {
+  position: absolute;
+  right: 16px;
+  top: 12px;
+  color: rgba(255, 255, 255, .6);
+  font-size: 10px;
+  letter-spacing: .18em;
+}
+
+.social-body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 0 18px 18px;
+}
+.social-avatar-wrap {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  padding: 4px;
+  margin-top: -36px;
+  border-radius: 50%;
+  background: var(--bg-2);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .22);
+}
+.social-avatar,
+.social-avatar-fallback {
+  position: absolute;
+  inset: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.social-avatar-fallback {
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, .18);
+}
+.social-avatar { object-fit: cover; z-index: 1; background: var(--bg-2); }
+.social-avatar-qq { color: #fff; }
+
+.social-name { margin-top: 12px; line-height: 1.35; min-width: 0; }
+.social-name strong {
+  display: block;
+  overflow: hidden;
+  color: var(--text);
+  font-size: 14.5px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.social-name span { display: block; margin-top: 2px; color: var(--text-faint); font-size: 11.5px; }
+
+.social-desc {
+  margin-top: 10px;
+  min-height: 3.2em;
+  color: var(--text-dim);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.social-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: auto;
+  padding: 11px 14px;
+  border-radius: 999px;
+  background: linear-gradient(120deg, var(--brand), var(--brand-2));
+  color: var(--brand-ink);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  box-shadow: 0 12px 24px -14px color-mix(in srgb, var(--brand) 76%, transparent);
+  transition: transform .25s var(--ease), box-shadow .25s, filter .25s;
+}
+.social-action:hover {
+  color: var(--brand-ink);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px -14px color-mix(in srgb, var(--brand) 88%, transparent);
+  filter: saturate(1.08);
+}
+.social-action-arr { transition: transform .25s var(--ease); }
+.social-action:hover .social-action-arr { transform: translate(2px, -2px); }
+
+@keyframes socialDeal {
+  0% {
+    opacity: 0;
+    transform: translateY(46px) rotate(-7deg) scale(.94);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-5px) rotate(1.5deg) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0) scale(1);
+  }
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 1100px) {
+  .social-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+}
+
+@media (max-width: 900px) {
+  .social-section { padding: 4px 18px 110px; }
+  .social-head { align-items: flex-start; flex-direction: column; gap: 16px; }
+}
+
+@media (max-width: 640px) {
+  .social-section { padding: 0 18px 100px; }
+  .social-grid { grid-template-columns: 1fr; gap: 18px; }
+  .social-card { border-radius: 22px; }
+  .social-banner { height: 84px; }
+  .social-desc { min-height: 0; }
+  .lang-label { display: none; }
+  .lang-picker { padding: 7px 8px; gap: 5px; }
+  .lang-picker select { max-width: 78px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-card,
+  .social-card:hover,
+  .social-action:hover,
+  .social-collapse:hover { animation: none; transform: none; }
+}

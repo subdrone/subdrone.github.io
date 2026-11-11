@@ -1,0 +1,138 @@
+/* ============================================================
+   aurora.css — 极光背景
+   灵感来自 Conrad008/Aurora-Login-Portal (MIT)
+   https://github.com/Conrad008/Aurora-Login-Portal
+   ============================================================ */
+
+/* 关掉旧的粒子 / 网格 / 扫描线背景 */
+#field,
+.bg-grid,
+.bg-vignette,
+.bg-noise,
+.scanline { display: none !important; }
+
+body {
+  background: var(--bg);
+}
+
+.aurora-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--bg);
+}
+
+.aurora-bg::before {
+  content: "";
+  position: absolute;
+  inset: -35%;
+  background: conic-gradient(
+    from 120deg at 50% 50%,
+    rgba(255, 142, 189, .55),
+    rgba(176, 160, 240, .5),
+    rgba(143, 220, 201, .45),
+    rgba(255, 201, 139, .48),
+    rgba(255, 142, 189, .55)
+  );
+  filter: blur(90px);
+  opacity: .48;
+  animation: auroraSpin 34s linear infinite;
+  will-change: transform;
+}
+
+.aurora-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 8%, transparent 30%, color-mix(in srgb, var(--bg) 82%, transparent) 100%),
+    linear-gradient(180deg, transparent 55%, var(--bg) 125%);
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(86px);
+  opacity: .52;
+  mix-blend-mode: screen;
+  animation: auroraFloat 20s ease-in-out infinite;
+  will-change: transform;
+}
+
+.aurora-blob.b1 {
+  width: 46vw;
+  height: 46vw;
+  left: -8vw;
+  top: -10vh;
+  background: #ff8ebd;
+  animation-delay: -4s;
+}
+
+.aurora-blob.b2 {
+  width: 40vw;
+  height: 40vw;
+  right: -10vw;
+  top: 4vh;
+  background: #b0a0f0;
+  animation-delay: -9s;
+}
+
+.aurora-blob.b3 {
+  width: 42vw;
+  height: 42vw;
+  left: 16vw;
+  bottom: -18vh;
+  background: #8fdcc9;
+  animation-delay: -14s;
+}
+
+.aurora-blob.b4 {
+  width: 34vw;
+  height: 34vw;
+  right: 6vw;
+  bottom: -12vh;
+  background: #ffc98b;
+  animation-delay: -6s;
+}
+
+.aurora-grain {
+  position: absolute;
+  inset: 0;
+  opacity: .045;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+[data-theme="light"] .aurora-bg::before {
+  opacity: .34;
+}
+
+[data-theme="light"] .aurora-blob {
+  opacity: .38;
+  mix-blend-mode: multiply;
+  filter: blur(80px);
+}
+
+@keyframes auroraSpin {
+  from { transform: rotate(0deg) scale(1); }
+  to { transform: rotate(360deg) scale(1.04); }
+}
+
+@keyframes auroraFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(4vw, 3vh, 0) scale(1.08); }
+  66% { transform: translate3d(-3vw, -2vh, 0) scale(.95); }
+}
+
+@media (max-width: 640px) {
+  .aurora-bg::before { filter: blur(60px); opacity: .42; }
+  .aurora-blob { filter: blur(58px); opacity: .46; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-bg::before,
+  .aurora-blob { animation: none; }
+}

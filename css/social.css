@@ -127,7 +127,7 @@
   box-shadow: 0 16px 42px -24px rgba(0, 0, 0, .55), var(--glow-soft);
   transform-style: preserve-3d;
   transition: transform .35s var(--ease), border-color .3s, box-shadow .3s;
-  animation: socialDeal .8s var(--ease) both;
+  animation: socialDeal .8s var(--ease) backwards;
   animation-delay: calc(var(--i, 0) * 90ms);
 }
 .social-section:not(.is-open) .social-card { animation: none; }

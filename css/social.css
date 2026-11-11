@@ -1,5 +1,5 @@
 /* ============================================================
-   social.css — 社交媒体卡片 + 语言选择器
+   social.css — 社交媒体手牌 + 语言选择器
    ============================================================ */
 
 /* ---------- 语言选择器 ---------- */
@@ -69,19 +69,18 @@
 .social-section {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 10px 28px 120px;
+  padding: 30px 28px 110px;
   scroll-margin-top: calc(var(--nav-h) + 24px);
 }
 
 .social-head {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 24px;
-  margin-bottom: 34px;
+  margin-bottom: 14px;
 }
-.social-head .section-title { margin-bottom: 0; }
-.social-head .section-desc { margin-top: 10px; }
+.social-head .section-title { margin: 0; }
 
 .social-collapse {
   flex: none;
@@ -103,19 +102,27 @@
   transform: translateY(-2px);
 }
 
-.social-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
-  perspective: 1400px;
+/* ---------- 手牌 ---------- */
+.social-hand {
+  position: relative;
+  height: 390px;
+  max-width: 1040px;
+  margin: 0 auto;
+  perspective: 1500px;
 }
 
-/* ---------- 纸牌式社交卡片 ---------- */
 .social-card {
   --brand: #ff8ebd;
   --brand-2: #b0a0f0;
   --brand-ink: #fff;
-  position: relative;
+  --x: 0px;
+  --y: 0px;
+  --rot: 0deg;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 250px;
+  height: 290px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -124,13 +131,13 @@
   background: var(--panel);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 16px 42px -24px rgba(0, 0, 0, .55), var(--glow-soft);
-  transform-style: preserve-3d;
-  transition: transform .35s var(--ease), border-color .3s, box-shadow .3s;
-  animation: socialDeal .8s var(--ease) backwards;
-  animation-delay: calc(var(--i, 0) * 90ms);
+  box-shadow: 0 20px 46px -26px rgba(0, 0, 0, .6), var(--glow-soft);
+  transform-origin: 50% 100%;
+  transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--rot));
+  transition: transform .9s cubic-bezier(.22, 1, .36, 1), border-color .3s, box-shadow .3s;
+  z-index: calc(var(--i, 0) + 1);
+  will-change: transform;
 }
-.social-section:not(.is-open) .social-card { animation: none; }
 .social-card::after {
   content: "";
   position: absolute;
@@ -139,20 +146,28 @@
   background: linear-gradient(120deg, rgba(255, 255, 255, .18), transparent 34%, transparent 70%, rgba(255, 255, 255, .08));
   opacity: .55;
 }
-.social-card:hover {
+.social-section.is-open .social-card:nth-child(1) { --x: -330px; --y: 16px; --rot: -8deg; }
+.social-section.is-open .social-card:nth-child(2) { --x: -110px; --y: 0px;  --rot: -3deg; }
+.social-section.is-open .social-card:nth-child(3) { --x: 110px;  --y: 0px;  --rot: 3deg; }
+.social-section.is-open .social-card:nth-child(4) { --x: 330px;  --y: 16px; --rot: 8deg; }
+
+.social-section.is-open .social-card:hover {
+  --y: -22px;
+  --rot: 0deg;
+  z-index: 30;
   border-color: var(--line-strong);
-  box-shadow: 0 24px 54px -26px rgba(0, 0, 0, .62), var(--glow);
-  transform: translateY(-8px) rotateX(3deg);
+  box-shadow: 0 30px 64px -26px rgba(0, 0, 0, .66), var(--glow);
 }
 
-.social-card[data-platform="x"] { --brand: #16181c; --brand-2: #3b3f46; }
+.social-card[data-platform="x"]  { --brand: #16181c; --brand-2: #3b3f46; }
 .social-card[data-platform="tg"] { --brand: #229ed9; --brand-2: #5ac8fa; }
 .social-card[data-platform="qq"] { --brand: #12b7f5; --brand-2: #6dd5fa; }
 .social-card[data-platform="gh"] { --brand: #24292f; --brand-2: #57606a; }
 
 .social-banner {
   position: relative;
-  height: 92px;
+  height: 88px;
+  flex: none;
   overflow: hidden;
   background:
     radial-gradient(circle at 22% 26%, rgba(255, 255, 255, .24), transparent 32%),
@@ -183,14 +198,6 @@
   font-weight: 700;
   line-height: 1;
   filter: drop-shadow(0 3px 10px rgba(0, 0, 0, .16));
-}
-.social-card-no {
-  position: absolute;
-  right: 16px;
-  top: 12px;
-  color: rgba(255, 255, 255, .6);
-  font-size: 10px;
-  letter-spacing: .18em;
 }
 
 .social-body {
@@ -244,14 +251,6 @@
 }
 .social-name span { display: block; margin-top: 2px; color: var(--text-faint); font-size: 11.5px; }
 
-.social-desc {
-  margin-top: 10px;
-  min-height: 3.2em;
-  color: var(--text-dim);
-  font-size: 12.5px;
-  line-height: 1.6;
-}
-
 .social-action {
   display: flex;
   align-items: center;
@@ -279,39 +278,57 @@
 .social-action:hover .social-action-arr { transform: translate(2px, -2px); }
 
 @keyframes socialDeal {
-  0% {
-    opacity: 0;
-    transform: translateY(46px) rotate(-7deg) scale(.94);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(-5px) rotate(1.5deg) scale(1.01);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) rotate(0) scale(1);
-  }
+  0% { opacity: 0; transform: translateY(40px) rotate(-6deg) scale(.95); }
+  100% { opacity: 1; transform: translateY(0) rotate(0) scale(1); }
 }
 
 /* ---------- 响应式 ---------- */
-@media (max-width: 1100px) {
-  .social-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 1200px) {
+  .social-hand { height: 350px; max-width: 760px; }
+  .social-card { width: 220px; height: 270px; }
+  .social-section.is-open .social-card:nth-child(1) { --x: -240px; --y: 12px; --rot: -7deg; }
+  .social-section.is-open .social-card:nth-child(2) { --x: -80px;  --y: 0px;  --rot: -2.5deg; }
+  .social-section.is-open .social-card:nth-child(3) { --x: 80px;   --y: 0px;  --rot: 2.5deg; }
+  .social-section.is-open .social-card:nth-child(4) { --x: 240px;  --y: 12px; --rot: 7deg; }
 }
 
-@media (max-width: 900px) {
-  .social-section { padding: 4px 18px 110px; }
-  .social-head { align-items: flex-start; flex-direction: column; gap: 16px; }
+@media (max-width: 1000px) {
+  .social-section { padding: 24px 18px 100px; }
+  .social-hand {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    height: auto;
+    max-width: none;
+    perspective: none;
+  }
+  .social-card {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: auto;
+    height: auto;
+    min-height: 250px;
+    transform: none;
+    transform-origin: center;
+    z-index: auto;
+    animation: socialDeal .8s var(--ease) backwards;
+    animation-delay: calc(var(--i, 0) * 80ms);
+  }
+  .social-section.is-open .social-card:nth-child(n) { --x: 0px; --y: 0px; --rot: 0deg; }
+  .social-section.is-open .social-card:hover { transform: none; }
+  .social-body { min-height: 180px; }
 }
 
 @media (max-width: 640px) {
   .topsearch,
   .topsearch input { min-width: 0; }
   .sidebar .nav-link.is-social-open::after { display: none; }
-  .social-section { padding: 0 18px 100px; }
-  .social-grid { grid-template-columns: 1fr; gap: 18px; }
+  .social-head { margin-bottom: 10px; }
+  .social-hand { grid-template-columns: 1fr; gap: 16px; }
   .social-card { border-radius: 22px; }
   .social-banner { height: 84px; }
-  .social-desc { min-height: 0; }
+  .social-body { min-height: 0; }
   .lang-label { display: none; }
   .lang-picker { padding: 7px 8px; gap: 5px; }
   .lang-picker select { max-width: 78px; }
@@ -321,5 +338,5 @@
   .social-card,
   .social-card:hover,
   .social-action:hover,
-  .social-collapse:hover { animation: none; transform: none; }
+  .social-collapse:hover { animation: none; transition: none; }
 }

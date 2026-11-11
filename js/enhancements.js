@@ -1,10 +1,9 @@
 'use strict';
 /* =========================================================================
-   交互增强：UI 语言 / 社交媒体展开 / QQ 加好友 / 卡片倾斜
+   交互增强：UI 语言 / 社交媒体手牌展开 / QQ 加好友
    ========================================================================= */
 (function () {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const noHover = window.matchMedia('(hover: none), (max-width: 820px)');
 
   const EXTRA_TEXT = {
     'zh-CN': { themeDark: '夜间', themeLight: '白天', readerViewsLabel: '次阅读' },
@@ -46,7 +45,7 @@
     });
   }
 
-  /* ---------- 社交媒体展开 ---------- */
+  /* ---------- 社交媒体手牌展开 ---------- */
   const social = {
     section: null,
     nav: null,
@@ -131,26 +130,11 @@
     });
   }
 
-  /* ---------- 社交卡片鼠标倾斜 ---------- */
-  function initTilt() {
-    if (noHover.matches || reduceMotion) return;
-    document.querySelectorAll('.social-card').forEach((card) => {
-      card.addEventListener('mousemove', (e) => {
-        const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width;
-        const y = (e.clientY - r.top) / r.height;
-        card.style.transform = `perspective(900px) rotateX(${(0.5 - y) * 6}deg) rotateY(${(x - 0.5) * 8}deg) translateY(-6px)`;
-      });
-      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
-    });
-  }
-
   function init() {
     localizeExtras();
     initLanguage();
     social.init();
     initQQ();
-    initTilt();
   }
 
   if (document.readyState === 'loading') {

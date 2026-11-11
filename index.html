@@ -43,30 +43,12 @@
       <a href="#" data-nav="home" class="nav-link is-active"><span data-text="navHome">首页</span></a>
       <a href="#articles" data-nav="articles" class="nav-link"><span data-text="navArticles">文章</span></a>
       <a href="#timeline" data-nav="timeline" class="nav-link"><span data-text="navTimeline">时间线</span></a>
-      <a href="#social" class="nav-link" id="navSocial" aria-expanded="false" aria-controls="social" data-aria="a11ySocial"><span data-text="navSocial">社交媒体</span></a>
     </nav>
     <span class="sidebar-hint" aria-hidden="true">▸</span>
   </div>
-  <div class="sidebar-row sidebar-row-social">
-    <div class="sidebar-social">
-    <a href="https://github.com/subdrone" target="_blank" rel="noopener nofollow" aria-label="GitHub" title="GitHub">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11 11 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
-    </a>
-    <a href="https://x.com/subdrone0_o" target="_blank" rel="noopener nofollow" aria-label="X" title="X">
-      <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M18.9 2H22l-7.1 8.1L23.2 22h-6.6l-5.2-6.8L5.4 22H2.3l7.6-8.7L1.1 2h6.8l4.7 6.2L18.9 2zm-1.1 18h1.8L7.3 3.8H5.4L17.8 20z"/></svg>
-    </a>
-    <a href="https://t.me/no_one_comes_tg" target="_blank" rel="noopener nofollow" aria-label="Telegram" title="Telegram">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M9.8 15.6l-.3 4.4c.5 0 .7-.2 1-.5l2.4-2.3 5 3.7c.9.5 1.6.2 1.8-.8l3.3-15.4c.3-1.3-.5-1.8-1.3-1.5L2.4 9.9c-1.3.5-1.3 1.2-.2 1.6l4.6 1.4L17.5 6c.5-.3.9-.1.6.2l-9 8.1z"/></svg>
-    </a>
-    <a class="social-qq" href="#" data-qq="MjY1NDg3MTkzMw==" rel="nofollow" aria-label="QQ（点击加好友）" title="QQ（点击加好友）">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M21.395 15.035a40 40 0 0 0-.803-2.264l-1.079-2.695c.001-.032.014-.562.014-.836C19.526 4.632 17.351 0 12 0S4.474 4.632 4.474 9.241c0 .274.013.804.014.836l-1.08 2.695a39 39 0 0 0-.802 2.264c-1.021 3.283-.69 4.643-.438 4.673c.54.065 2.103-2.472 2.103-2.472c0 1.469.756 3.387 2.394 4.771c-.612.188-1.363.479-1.845.835c-.434.32-.379.646-.301.778c.343.578 5.883.369 7.482.189c1.6.18 7.14.389 7.483-.189c.078-.132.132-.458-.301-.778c-.483-.356-1.233-.646-1.846-.836c1.637-1.384 2.393-3.302 2.393-4.771c0 0 1.563 2.537 2.103 2.472c.251-.03.581-1.39-.438-4.673"/></svg>
-    </a>
-  </div>
-  <span class="sidebar-hint" aria-hidden="true">▸</span>
-  </div>
 </aside>
 
-<!-- ===== 顶栏：搜索 + 语言 + 主题 ===== -->
+<!-- ===== 顶栏：搜索 + 主题 ===== -->
 <header class="nav" id="nav">
   <div class="nav-inner">
     <div class="search-box topsearch">
@@ -154,12 +136,8 @@
       </a>
     </div>
 
-    <!-- 社交媒体（点击侧栏展开，手牌式动效） -->
-    <section class="social-section" id="social" hidden aria-labelledby="socialTitle">
-      <div class="social-head">
-        <h2 class="section-title" id="socialTitle"><span data-text="sectionSocial">社交媒体</span></h2>
-        <button class="social-collapse" id="socialCollapse" type="button"><span data-text="socialCollapse">收起</span> <span aria-hidden="true">↑</span></button>
-      </div>
+    <!-- 社交媒体手牌 -->
+    <section class="social-section" id="social" data-aria="a11ySocial" aria-label="社交媒体">
       <div class="social-hand">
         <article class="social-card" data-platform="x" style="--i:0">
           <div class="social-banner"><span class="social-banner-glyph">𝕏</span></div>

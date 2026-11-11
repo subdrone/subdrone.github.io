@@ -52,7 +52,7 @@ window.BLOG_ARTICLES = [
   {
     "id": "over-the-mountain",
     "no": 4,
-    "title": "深夜",
+    "title": "山沟",
     "date": "2026-11-12",
     "time": 1,
     "words": 107,
